@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME_M>
+     <HASH_ID>8FC671B3E3FB39758241C7D64C0E5CD9B9624C78</HASH_ID>
+     <ID>&lt;type&gt; DT_AGCO_Inventory_data_Sender http://agco.com.br http://agco.com.br</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>type</IFR_TYPE>
+     <IFR_NAME>DT_AGCO_Inventory_data_Sender</IFR_NAME>
+     <IFR_NSPCE>http://agco.com.br</IFR_NSPCE>
+     <IFR_GNSPCE>http://agco.com.br</IFR_GNSPCE>
+     <GEN_VERS>0005</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmtypedef</CATEGORY>
+     <X-ML_NSPCE>http://agco.com.br</X-ML_NSPCE>
+     <X-ML_NAME>DT_AGCO_Inventory_data_Sender</X-ML_NAME>
+     <VERSION_ID>3cf5a623e32c11eba6d100000083ee06</VERSION_ID>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>A01</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>A01</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZDT_AGCO_INVENTORY_DATA_SENDE1</OBJ_NAME_R>
+     <ID>&lt;element&gt; A01 &lt;type&gt; DT_AGCO_Inventory_data_Sender http://agco.com.br http://agco.com.br</ID>
+     <IFR_TYPE>element</IFR_TYPE>
+     <IFR_NAME>A01</IFR_NAME>
+     <IFR_TEXT>data</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_TAGTYP>E</IFR_TAGTYP>
+     <IFR_MINOCC>1</IFR_MINOCC>
+     <IFR_MAXOCC>1</IFR_MAXOCC>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>A01</R3_NAME>
+     <R3_TEXT>data</R3_TEXT>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>A04</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>A04</OBJ_NAME2>
+     <OBJECT_R>TTYP</OBJECT_R>
+     <OBJ_NAME_R>ZDT_AGCO_INVENTORY_DATA_SE_TAB</OBJ_NAME_R>
+     <ID>&lt;element&gt; A04 &lt;type&gt; DT_AGCO_Inventory_data_Sender http://agco.com.br http://agco.com.br</ID>
+     <IFR_TYPE>element</IFR_TYPE>
+     <IFR_NAME>A04</IFR_NAME>
+     <IFR_TEXT>parts</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_TAGTYP>L</IFR_TAGTYP>
+     <IFR_MINOCC>1</IFR_MINOCC>
+     <IFR_MAXOCC>65535</IFR_MAXOCC>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>A04</R3_NAME>
+     <R3_TEXT>parts</R3_TEXT>
+     <R3_SEQNUM>000002</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME>
+     <OBJECT1>TABL</OBJECT1>
+     <OBJ_NAME1>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME1>
+     <OBJECT2>TABL</OBJECT2>
+     <OBJ_NAME2>ZDT_AGCO_INVENTORY_DATA_SENDER</OBJ_NAME2>
+     <ID>&lt;type&gt; DT_AGCO_Inventory_data_Sender http://agco.com.br http://agco.com.br</ID>
+     <IFR_TYPE>type</IFR_TYPE>
+     <IFR_NAME>DT_AGCO_Inventory_data_Sender</IFR_NAME>
+     <IFR_TEXT>Send Inventory data to AGCO</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TABL</R3_TYPE>
+     <R3_NAME>ZDT_AGCO_INVENTORY_DATA_SENDER</R3_NAME>
+     <R3_TEXT>Send Inventory data to AGCO</R3_TEXT>
+     <CATEGORY>ifmtypedef</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

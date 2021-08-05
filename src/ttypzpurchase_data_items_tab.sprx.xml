@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TTYP</OBJECT>
+     <OBJ_NAME>ZPURCHASE_DATA_ITEMS_TAB</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZPURCHASE_DATA</OBJ_NAME_M>
+     <HASH_ID>3B7F8A2A5BE43A3AC3851E404F76766FA36B9E42</HASH_ID>
+     <ID>TableOf&lt;type&gt; items &lt;element&gt; items &lt;type&gt; order &lt;element&gt; order &lt;type&gt; data &lt;element&gt; data &lt;type&gt; PurchaseData https://api.sa.agcocorp.com/Purchase https://api.sa.agcocorp.com/Purchase</ID>
+     <IFR_TYPE>TableOftype</IFR_TYPE>
+     <IFR_NAME>items</IFR_NAME>
+     <IFR_NSPCE>https://api.sa.agcocorp.com/Purchase</IFR_NSPCE>
+     <IFR_GNSPCE>https://api.sa.agcocorp.com/Purchase</IFR_GNSPCE>
+     <GEN_VERS>0005</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmtypedef</CATEGORY>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TTYP</OBJECT>
+     <OBJ_NAME>ZPURCHASE_DATA_ITEMS_TAB</OBJ_NAME>
+     <OBJECT1>TTYP</OBJECT1>
+     <OBJ_NAME1>ZPURCHASE_DATA_ITEMS_TAB</OBJ_NAME1>
+     <OBJECT2>TTYP</OBJECT2>
+     <OBJ_NAME2>ZPURCHASE_DATA_ITEMS_TAB</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZPURCHASE_DATA_ITEMS</OBJ_NAME_R>
+     <ID>TableOf&lt;type&gt; items &lt;element&gt; items &lt;type&gt; order &lt;element&gt; order &lt;type&gt; data &lt;element&gt; data &lt;type&gt; PurchaseData https://api.sa.agcocorp.com/Purchase https://api.sa.agcocorp.com/Purchase</ID>
+     <IFR_TYPE>TableOftype</IFR_TYPE>
+     <IFR_NAME>items</IFR_NAME>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TTYP</R3_TYPE>
+     <R3_NAME>ZPURCHASE_DATA_ITEMS_TAB</R3_NAME>
+     <R3_TEXT>Proxy Table Type (generated)</R3_TEXT>
+     <CATEGORY>ifmtypedef</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

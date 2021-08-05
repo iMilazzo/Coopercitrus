@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZRESPONSE_PURCHASE1</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZRESPONSE_PURCHASE1</OBJ_NAME_M>
+     <HASH_ID>BADC0A9BC1137E742ECBA7F1DF3594F5020C3F8C</HASH_ID>
+     <ID>&lt;message&gt; responsePurchase https://api.sa.agcocorp.com/Purchase https://api.sa.agcocorp.com/Purchase</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>message</IFR_TYPE>
+     <IFR_NAME>responsePurchase</IFR_NAME>
+     <IFR_NSPCE>https://api.sa.agcocorp.com/Purchase</IFR_NSPCE>
+     <IFR_GNSPCE>https://api.sa.agcocorp.com/Purchase</IFR_GNSPCE>
+     <GEN_VERS>0006</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmmessage</CATEGORY>
+     <X-ML_NSPCE>https://api.sa.agcocorp.com/Purchase</X-ML_NSPCE>
+     <X-ML_NAME>responsePurchase</X-ML_NAME>
+     <VERSION_ID>347eff53f01411eb977800000083ee06</VERSION_ID>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZRESPONSE_PURCHASE1</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>RESPONSE_PURCHASE</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>RESPONSE_PURCHASE</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZRESPONSE_PURCHASE</OBJ_NAME_R>
+     <ID>&lt;part&gt; responsePurchase &lt;message&gt; responsePurchase https://api.sa.agcocorp.com/Purchase https://api.sa.agcocorp.com/Purchase</ID>
+     <IFR_TYPE>part</IFR_TYPE>
+     <IFR_NAME>responsePurchase</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>RESPONSE_PURCHASE</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZRESPONSE_PURCHASE1</OBJ_NAME>
+     <OBJECT1>TABL</OBJECT1>
+     <OBJ_NAME1>ZRESPONSE_PURCHASE1</OBJ_NAME1>
+     <OBJECT2>TABL</OBJECT2>
+     <OBJ_NAME2>ZRESPONSE_PURCHASE1</OBJ_NAME2>
+     <ID>&lt;message&gt; responsePurchase https://api.sa.agcocorp.com/Purchase https://api.sa.agcocorp.com/Purchase</ID>
+     <IFR_TYPE>message</IFR_TYPE>
+     <IFR_NAME>responsePurchase</IFR_NAME>
+     <IFR_TEXT>Purchase Order message type</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TABL</R3_TYPE>
+     <R3_NAME>ZRESPONSE_PURCHASE1</R3_NAME>
+     <R3_TEXT>Purchase Order message type</R3_TEXT>
+     <CATEGORY>ifmmessage</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DOCV" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DOC>
+    <HEAD>
+     <TDOBJECT>DOKU</TDOBJECT>
+     <TDNAME>ZMM_MIGO_NFE_DOCDAT</TDNAME>
+     <TDID>DT</TDID>
+     <TDSPRAS>P</TDSPRAS>
+     <TDFORM>S_DOCU_SHOW</TDFORM>
+     <TDSTYLE>S_DOCUS1</TDSTYLE>
+     <TDVERSION>00001</TDVERSION>
+     <TDLINESIZE>072</TDLINESIZE>
+    </HEAD>
+    <LINES>
+     <TLINE>
+      <TDFORMAT>*</TDFORMAT>
+      <TDLINE>Uma NFe foi encontrada com data diferente da informada.</TDLINE>
+     </TLINE>
+     <TLINE>
+      <TDFORMAT>*</TDFORMAT>
+      <TDLINE>Clique em &quot;Atualizar&quot; para usar a mesma data da NFe encontrada.</TDLINE>
+     </TLINE>
+     <TLINE>
+      <TDFORMAT>*</TDFORMAT>
+      <TDLINE>Clique em &quot;Manter&quot; para usar a data informada na tela, isto pode</TDLINE>
+     </TLINE>
+     <TLINE>
+      <TDLINE>resultar em inconsistências.</TDLINE>
+     </TLINE>
+     <TLINE>
+      <TDFORMAT>*</TDFORMAT>
+      <TDLINE>Clique em &quot;Cancelar&quot; para cancelar a operação e não lançar este</TDLINE>
+     </TLINE>
+     <TLINE>
+      <TDLINE>documento.</TDLINE>
+     </TLINE>
+    </LINES>
+   </DOC>
+  </asx:values>
+ </asx:abap>
+</abapGit>

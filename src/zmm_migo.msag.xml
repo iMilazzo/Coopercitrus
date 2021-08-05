@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZMM_MIGO</ARBGB>
+    <MASTERLANG>P</MASTERLANG>
+    <STEXT>Textos de mensagem do cliente para MIGO</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZMM_MIGO</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>Nota fiscal (docnum) &amp;1 com data de &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZMM_MIGO</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Favor alterar a Data do documento da MIGO para evitar duplicidades.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

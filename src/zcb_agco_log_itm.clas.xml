@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+    <LANGU>P</LANGU>
+    <DESCRIPT>AgenteBase Persistência ZMM_AGCO_LOG_ITM</DESCRIPT>
+    <CATEGORY>11</CATEGORY>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>CREATE_PERSISTENT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Gera objeto persistente novo com chave</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>CREATE_TRANSIENT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Gera objeto transiente com chave</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>CURRENT_SPECIAL_OBJECT_INFO</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Dados de objeto específicos de classe atuais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>DELETE_PERSISTENT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Elimina objeto persistente com chave</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>GET_PERSISTENT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Chama objeto persistente com chave</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>GET_TRANSIENT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Determina objeto transiente com chave</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_ATT_INFO_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Query: mapeamento metadds.p/atributos</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_EXTRACT_IDENTIFIER</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Extrai chave empresarial de dados BD</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_GET_ATTRIBUTES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Lê atributos persistentes de objeto</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_INITIALIZE_METADATA</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Inicializa tabela de metadados p/atributos</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_LOAD_FROM_DATABASE</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>lê, mediante um filtro, dados do objeto identificados do BD</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_LOAD_FROM_DATABASE_KEY</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Lê mediante chave empresarial dds.objeto identificados de BD</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_MERGE_IDENTIFIER</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Insere dados BD chave empresarial</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_SAVE_TO_DATABASE</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Grava dados de objeto no BD</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_SERIALIZE_BKEY</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Serializa a chave empresarial</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>MAP_SET_ATTRIBUTES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Define atributos persistentes de um objeto</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>PM_CHECK_AND_SET_ATTRIBUTES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Elimina e define atributos persistentes</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>PM_CREATE_REPRESENTANT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Gera novo objeto de capa e entrada de administração</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>PM_DELETE_PERSISTENT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Elimina objeto persistente de BD</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>PM_LOAD_AND_SET_ATTRIBUTES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Carrega e define atributos persistentes</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>SPECIAL_BKEY_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Específico de classe: tabela de pesquisa chaves empresariais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>SPECIAL_OBJECT_INFO</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Dados de objeto específicos de classe</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_BUSINESS_KEY</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Chave empresarial</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_BUSINESS_KEY_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela referência de objeto</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_DB_DATA</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de linha dados de objeto persistentes</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_DB_DATA_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela dados de objeto persistentes</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_DB_DELETE_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela identificadores para eliminar</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_OBJECT_REF</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Tipo de um objeto administrado</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_OBJECT_REF_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela referência de objeto</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_OID</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Tipo do identificador de objetos genérico</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_OID_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela identificador de objeto</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_SPECIAL_BKEY_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela tabela de pesquisa chaves empresariais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_SPECIAL_OBJECT_INFO</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Tipo de linha dados de objeto específicos de classe</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_SPECIAL_OBJECT_INFO_TAB</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de tabela dados de objeto específicos de classe</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCB_AGCO_LOG_ITM</CLSNAME>
+     <CMPNAME>TYP_TYPE</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Tipo identificador tipo</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

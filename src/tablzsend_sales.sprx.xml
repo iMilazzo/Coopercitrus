@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSEND_SALES</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZSEND_SALES</OBJ_NAME_M>
+     <HASH_ID>D0C7DEA0682C5D999E8772857EECDCF19CC91995</HASH_ID>
+     <ID>&lt;message&gt; sendSales https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>message</IFR_TYPE>
+     <IFR_NAME>sendSales</IFR_NAME>
+     <IFR_NSPCE>https://api.sa.agcocorp.com/Sales</IFR_NSPCE>
+     <IFR_GNSPCE>https://api.sa.agcocorp.com/Sales</IFR_GNSPCE>
+     <GEN_VERS>0006</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmmessage</CATEGORY>
+     <X-ML_NSPCE>https://api.sa.agcocorp.com/Sales</X-ML_NSPCE>
+     <X-ML_NAME>sendSales</X-ML_NAME>
+     <VERSION_ID>a9d1cb3ef14611ebc04800000083ee06</VERSION_ID>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSEND_SALES</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>SEND_SALES</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>SEND_SALES</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZSALES_DATA</OBJ_NAME_R>
+     <ID>&lt;part&gt; sendSales &lt;message&gt; sendSales https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_TYPE>part</IFR_TYPE>
+     <IFR_NAME>sendSales</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>SEND_SALES</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSEND_SALES</OBJ_NAME>
+     <OBJECT1>TABL</OBJECT1>
+     <OBJ_NAME1>ZSEND_SALES</OBJ_NAME1>
+     <OBJECT2>TABL</OBJECT2>
+     <OBJ_NAME2>ZSEND_SALES</OBJ_NAME2>
+     <ID>&lt;message&gt; sendSales https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_TYPE>message</IFR_TYPE>
+     <IFR_NAME>sendSales</IFR_NAME>
+     <IFR_TEXT>Sales Order message type</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TABL</R3_TYPE>
+     <R3_NAME>ZSEND_SALES</R3_NAME>
+     <R3_TEXT>Sales Order message type</R3_TEXT>
+     <CATEGORY>ifmmessage</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

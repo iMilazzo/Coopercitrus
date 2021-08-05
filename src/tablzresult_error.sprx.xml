@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZRESULT_ERROR</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZRESULT_ERROR</OBJ_NAME_M>
+     <HASH_ID>892D87BBCB310421D46337BB20732C0D019391D6</HASH_ID>
+     <ID>&lt;type&gt; ResultError https://api.sa.agcocorp.com/inventory https://api.sa.agcocorp.com/inventory</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>type</IFR_TYPE>
+     <IFR_NAME>ResultError</IFR_NAME>
+     <IFR_NSPCE>https://api.sa.agcocorp.com/inventory</IFR_NSPCE>
+     <IFR_GNSPCE>https://api.sa.agcocorp.com/inventory</IFR_GNSPCE>
+     <GEN_VERS>0005</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmtypedef</CATEGORY>
+     <X-ML_NSPCE>https://api.sa.agcocorp.com/inventory</X-ML_NSPCE>
+     <X-ML_NAME>ResultError</X-ML_NAME>
+     <VERSION_ID>463afa54ee7c11eb9a9100000083ee06</VERSION_ID>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZRESULT_ERROR</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>ERRORS</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>ERRORS</OBJ_NAME2>
+     <OBJECT_R>TTYP</OBJECT_R>
+     <OBJ_NAME_R>ZRESULT_ERROR_ERRORS_TAB</OBJ_NAME_R>
+     <ID>&lt;element&gt; errors &lt;type&gt; ResultError https://api.sa.agcocorp.com/inventory https://api.sa.agcocorp.com/inventory</ID>
+     <IFR_TYPE>element</IFR_TYPE>
+     <IFR_NAME>errors</IFR_NAME>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_TAGTYP>L</IFR_TAGTYP>
+     <IFR_MINOCC>1</IFR_MINOCC>
+     <IFR_MAXOCC>65535</IFR_MAXOCC>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>ERRORS</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZRESULT_ERROR</OBJ_NAME>
+     <OBJECT1>TABL</OBJECT1>
+     <OBJ_NAME1>ZRESULT_ERROR</OBJ_NAME1>
+     <OBJECT2>TABL</OBJECT2>
+     <OBJ_NAME2>ZRESULT_ERROR</OBJ_NAME2>
+     <ID>&lt;type&gt; ResultError https://api.sa.agcocorp.com/inventory https://api.sa.agcocorp.com/inventory</ID>
+     <IFR_TYPE>type</IFR_TYPE>
+     <IFR_NAME>ResultError</IFR_NAME>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TABL</R3_TYPE>
+     <R3_NAME>ZRESULT_ERROR</R3_NAME>
+     <R3_TEXT>Proxy Structure (generated)</R3_TEXT>
+     <CATEGORY>ifmtypedef</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

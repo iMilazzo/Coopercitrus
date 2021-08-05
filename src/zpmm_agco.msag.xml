@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZPMM_AGCO</ARBGB>
+    <MASTERLANG>P</MASTERLANG>
+    <STEXT>Textos para Interface AGCO</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp; &amp; &amp; &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Inicio do processamento.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>-Lendo constantes.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>-Carregando dados.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>-Definindo critérIos de seleção.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>-Autenticando na AGCO.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>--Token gerado com sucesso.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>--Token não foi gerado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>-Preenchendo saida.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>--Iniciando interface de &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>--Envio realizado com sucesso.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>---&amp; registros de &amp; selecionados.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>--Um erro aconteceu durante o envio dos dados.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>---Tempo de processamento: &amp; segundos</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Nenhum parceiro válido foi selecionado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Nenhum material foi selecionado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Nenhum material na planta foi selecionado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Nenhuma constante AGCO foi encontrada.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Nenhum inventário a ser processado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Enviando &amp; &amp; para CNPJ &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>020</MSGNR>
+     <TEXT>Execução em modo de teste acionado.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

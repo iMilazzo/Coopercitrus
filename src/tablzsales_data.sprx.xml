@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSALES_DATA</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZSALES_DATA</OBJ_NAME_M>
+     <HASH_ID>927128D990A17F0DBB1747C8B750CD1338B59CB9</HASH_ID>
+     <ID>&lt;type&gt; SalesData https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>type</IFR_TYPE>
+     <IFR_NAME>SalesData</IFR_NAME>
+     <IFR_NSPCE>https://api.sa.agcocorp.com/Sales</IFR_NSPCE>
+     <IFR_GNSPCE>https://api.sa.agcocorp.com/Sales</IFR_GNSPCE>
+     <GEN_VERS>0005</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmtypedef</CATEGORY>
+     <X-ML_NSPCE>https://api.sa.agcocorp.com/Sales</X-ML_NSPCE>
+     <X-ML_NAME>SalesData</X-ML_NAME>
+     <VERSION_ID>7417bd1df14511eb8be600000083ee06</VERSION_ID>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSALES_DATA</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>DATA</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>DATA</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZSALES_DATA_DATA</OBJ_NAME_R>
+     <ID>&lt;element&gt; data &lt;type&gt; SalesData https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_TYPE>element</IFR_TYPE>
+     <IFR_NAME>data</IFR_NAME>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_TAGTYP>E</IFR_TAGTYP>
+     <IFR_MINOCC>1</IFR_MINOCC>
+     <IFR_MAXOCC>1</IFR_MAXOCC>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>DATA</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSALES_DATA</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>TOKEN</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>TOKEN</OBJ_NAME2>
+     <ID>&lt;attribute&gt; token &lt;type&gt; SalesData https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_TYPE>attribute</IFR_TYPE>
+     <IFR_NAME>token</IFR_NAME>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_TAGTYP>A</IFR_TAGTYP>
+     <IFR_XSDTYP>token</IFR_XSDTYP>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>TOKEN</R3_NAME>
+     <R3_DATATYP>STRG</R3_DATATYP>
+     <R3_SEQNUM>000002</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSALES_DATA</OBJ_NAME>
+     <OBJECT1>TABL</OBJECT1>
+     <OBJ_NAME1>ZSALES_DATA</OBJ_NAME1>
+     <OBJECT2>TABL</OBJECT2>
+     <OBJ_NAME2>ZSALES_DATA</OBJ_NAME2>
+     <ID>&lt;type&gt; SalesData https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <IFR_TYPE>type</IFR_TYPE>
+     <IFR_NAME>SalesData</IFR_NAME>
+     <IFR_TEXT>Sales data</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TABL</R3_TYPE>
+     <R3_NAME>ZSALES_DATA</R3_NAME>
+     <R3_TEXT>Sales data</R3_TEXT>
+     <CATEGORY>ifmtypedef</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

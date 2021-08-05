@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+    <LANGU>P</LANGU>
+    <DESCRIPT>COOP-4537 - Criação de EDI para o fornecedor AGCO</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <RSTAT>K</RSTAT>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_ANO</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Exercício do período atual</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_DIRECT</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Direção do movimento de mercadorias</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_DOCTYP</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Tipo de documento</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_KNTTP</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Categoria de classificação contábil</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_LOEKZ</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Marcação de eliminação</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_MES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Período corrente (período contábil)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_INVENTORY_DATA</CLSNAME>
+     <CMPNAME>LV_WBSTA</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Status do movimento de mercadorias</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

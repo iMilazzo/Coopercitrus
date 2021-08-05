@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSEND_CUSTOMERS</OBJ_NAME>
+     <OBJECT_M>TABL</OBJECT_M>
+     <OBJ_NAME_M>ZSEND_CUSTOMERS</OBJ_NAME_M>
+     <HASH_ID>12CE60FDEE1D8B3C259DE2A3C8F633B9F6352EAC</HASH_ID>
+     <ID>&lt;message&gt; sendCustomers https://api.sa.agcocorp.com/Customers https://api.sa.agcocorp.com/Customers</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>message</IFR_TYPE>
+     <IFR_NAME>sendCustomers</IFR_NAME>
+     <IFR_NSPCE>https://api.sa.agcocorp.com/Customers</IFR_NSPCE>
+     <IFR_GNSPCE>https://api.sa.agcocorp.com/Customers</IFR_GNSPCE>
+     <GEN_VERS>0006</GEN_VERS>
+     <PREFIX>Z</PREFIX>
+     <CATEGORY>ifmmessage</CATEGORY>
+     <X-ML_NSPCE>https://api.sa.agcocorp.com/Customers</X-ML_NSPCE>
+     <X-ML_NAME>sendCustomers</X-ML_NAME>
+     <VERSION_ID>6c8de0a5f22911eb9cbf00000083ee06</VERSION_ID>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSEND_CUSTOMERS</OBJ_NAME>
+     <OBJECT1>FIEL</OBJECT1>
+     <OBJ_NAME1>SEND_CUSTOMERS</OBJ_NAME1>
+     <OBJECT2>FIEL</OBJECT2>
+     <OBJ_NAME2>SEND_CUSTOMERS</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZCUSTOMER_DATA</OBJ_NAME_R>
+     <ID>&lt;part&gt; sendCustomers &lt;message&gt; sendCustomers https://api.sa.agcocorp.com/Customers https://api.sa.agcocorp.com/Customers</ID>
+     <IFR_TYPE>part</IFR_TYPE>
+     <IFR_NAME>sendCustomers</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>FIEL</R3_TYPE>
+     <R3_NAME>SEND_CUSTOMERS</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>TABL</OBJECT>
+     <OBJ_NAME>ZSEND_CUSTOMERS</OBJ_NAME>
+     <OBJECT1>TABL</OBJECT1>
+     <OBJ_NAME1>ZSEND_CUSTOMERS</OBJ_NAME1>
+     <OBJECT2>TABL</OBJECT2>
+     <OBJ_NAME2>ZSEND_CUSTOMERS</OBJ_NAME2>
+     <ID>&lt;message&gt; sendCustomers https://api.sa.agcocorp.com/Customers https://api.sa.agcocorp.com/Customers</ID>
+     <IFR_TYPE>message</IFR_TYPE>
+     <IFR_NAME>sendCustomers</IFR_NAME>
+     <IFR_TEXT>Customers message type</IFR_TEXT>
+     <IFR_LANGU>EN</IFR_LANGU>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>TABL</R3_TYPE>
+     <R3_NAME>ZSEND_CUSTOMERS</R3_NAME>
+     <R3_TEXT>Customers message type</R3_TEXT>
+     <CATEGORY>ifmmessage</CATEGORY>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

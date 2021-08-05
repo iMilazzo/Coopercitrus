@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AGCO_PARTS_DATA</CLSNAME>
+    <LANGU>P</LANGU>
+    <DESCRIPT>COOP-4537 - Criação de EDI para o fornecedor AGCO</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <RSTAT>K</RSTAT>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_PARTS_DATA</CLSNAME>
+     <CMPNAME>LER_AVALIACOES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Ler avaliações de materiais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_PARTS_DATA</CLSNAME>
+     <CMPNAME>LER_DESCRICOES</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Ler descrições dos materiais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_PARTS_DATA</CLSNAME>
+     <CMPNAME>LER_DOCUMENTOS</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Ler documentos de materiais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AGCO_PARTS_DATA</CLSNAME>
+     <CMPNAME>LER_PO_ABERTAS</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Ler P.O. abertas</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
