@@ -363,9 +363,7 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
     DATA:
       lv_rtime   TYPE p DECIMALS 3,
       lt_log_hdr TYPE ty_t_log_hdr,
-      lt_log_itm TYPE ty_t_log_itm,
-      lt_pedidos TYPE zagcott_po_orders,
-      lt_items   TYPE zagcott_po_items.
+      lt_log_itm TYPE ty_t_log_itm.
 
     GET RUN TIME FIELD DATA(lv_rtime_ini).
 

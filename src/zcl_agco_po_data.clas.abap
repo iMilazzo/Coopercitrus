@@ -63,8 +63,6 @@ public section.
   types:
     ty_t_impostos TYPE SORTED TABLE OF ty_s_imposto WITH UNIQUE KEY docnum taxtyp .
   types:
-    ty_s_saida TYPE TABLE OF zagcos_parts_data WITH DEFAULT KEY .
-  types:
     BEGIN OF MESH ty_m_pedidos,
         notas    TYPE ty_t_notas ASSOCIATION fatura TO faturas
                                           ON belnr = belnr
@@ -358,9 +356,7 @@ CLASS ZCL_AGCO_PO_DATA IMPLEMENTATION.
 
     DATA:
       lt_log_hdr TYPE ty_t_log_hdr,
-      lt_log_itm TYPE ty_t_log_itm,
-      lt_pedidos TYPE zagcott_po_orders,
-      lt_items   TYPE zagcott_po_items.
+      lt_log_itm TYPE ty_t_log_itm.
 
     MESSAGE s008(zpmm_agco).
 

@@ -48,8 +48,6 @@ CLASS zcl_agco_parts_data DEFINITION
     TYPES:
       ty_t_abertos TYPE SORTED TABLE OF ty_s_abertos WITH UNIQUE KEY matnr .
     TYPES:
-      ty_s_saida TYPE TABLE OF zagcos_parts_data WITH DEFAULT KEY .
-    TYPES:
       BEGIN OF MESH ty_m_pecas,
         materiais  TYPE ty_t_materiais  ASSOCIATION centro TO centros
                                                  ON matnr = matnr  USING KEY primary_key
