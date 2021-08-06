@@ -4,7 +4,7 @@
   <asx:values>
    <VSEOCLASS>
     <CLSNAME>ZCO_SI_SALES_OUTBOUND</CLSNAME>
-    <LANGU>E</LANGU>
+    <LANGU>P</LANGU>
     <DESCRIPT>Sales Order SI Out Sync</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>

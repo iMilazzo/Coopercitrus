@@ -134,6 +134,30 @@
      <MSGNR>020</MSGNR>
      <TEXT>Execução em modo de teste acionado.</TEXT>
     </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>021</MSGNR>
+     <TEXT>Ocorreu um erro crítico. O envio foi cancelado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>022</MSGNR>
+     <TEXT>Favor consultar o PI para maiores informações.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>023</MSGNR>
+     <TEXT>Ocorreram erros não críticos durante o envio.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPMM_AGCO</ARBGB>
+     <MSGNR>024</MSGNR>
+     <TEXT>Favor consultar a log para mais detalhes.</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

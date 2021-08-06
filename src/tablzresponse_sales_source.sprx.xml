@@ -47,21 +47,21 @@
      <OBJECT>TABL</OBJECT>
      <OBJ_NAME>ZRESPONSE_SALES_SOURCE</OBJ_NAME>
      <OBJECT1>FIEL</OBJECT1>
-     <OBJ_NAME1>VALUES</OBJ_NAME1>
+     <OBJ_NAME1>VALUE</OBJ_NAME1>
      <OBJECT2>FIEL</OBJECT2>
-     <OBJ_NAME2>VALUES</OBJ_NAME2>
-     <OBJECT_R>TTYP</OBJECT_R>
-     <OBJ_NAME_R>ZSTRING_TAB13</OBJ_NAME_R>
-     <ID>&lt;element&gt; values &lt;type&gt; source &lt;element&gt; source &lt;type&gt; errors &lt;element&gt; errors &lt;type&gt; responseSales https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
+     <OBJ_NAME2>VALUE</OBJ_NAME2>
+     <ID>&lt;element&gt; value &lt;type&gt; source &lt;element&gt; source &lt;type&gt; errors &lt;element&gt; errors &lt;type&gt; responseSales https://api.sa.agcocorp.com/Sales https://api.sa.agcocorp.com/Sales</ID>
      <IFR_TYPE>element</IFR_TYPE>
-     <IFR_NAME>values</IFR_NAME>
+     <IFR_NAME>value</IFR_NAME>
      <IFR_LANGU>EN</IFR_LANGU>
-     <IFR_TAGTYP>L</IFR_TAGTYP>
-     <IFR_MAXOCC>65535</IFR_MAXOCC>
+     <IFR_TAGTYP>E</IFR_TAGTYP>
+     <IFR_MAXOCC>1</IFR_MAXOCC>
      <IFR_OPTNL>X</IFR_OPTNL>
+     <IFR_XSDTYP>string</IFR_XSDTYP>
      <IFR_SCALE>-2</IFR_SCALE>
      <R3_TYPE>FIEL</R3_TYPE>
-     <R3_NAME>VALUES</R3_NAME>
+     <R3_NAME>VALUE</R3_NAME>
+     <R3_DATATYP>STRG</R3_DATATYP>
      <R3_SEQNUM>000002</R3_SEQNUM>
     </item>
     <item>

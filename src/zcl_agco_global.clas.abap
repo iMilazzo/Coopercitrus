@@ -18,6 +18,8 @@ private section.
     for ZIF_AGCO~T_CONSTANTES .
   aliases LT_PARCEIROS
     for ZIF_AGCO~T_PARCEIROS .
+  aliases R_MATNR
+    for ZIF_AGCO~R_MATNR .
   aliases R_WERKS
     for ZIF_AGCO~R_WERKS .
   aliases V_DATA
@@ -251,12 +253,19 @@ CLASS ZCL_AGCO_GLOBAL IMPLEMENTATION.
   endmethod.
 
 
-  method ZIF_AGCO~DEFINIR_MODO_TESTE.
-    if iv_teste is SUPPLIED.
-      v_teste = iv_teste.
-      message s020(zpmm_agco).
-    endif.
+  method ZIF_AGCO~DEFINIR_MATERIAIS.
+    r_matnr = it_matnr.
   endmethod.
+
+
+  METHOD zif_agco~definir_modo_teste.
+    IF iv_teste IS SUPPLIED.
+      v_teste = iv_teste.
+      IF v_teste = abap_true.
+        MESSAGE s020(zpmm_agco).
+      ENDIF.
+    ENDIF.
+  ENDMETHOD.
 
 
   method ZIF_AGCO~ENVIAR.
@@ -275,6 +284,10 @@ CLASS ZCL_AGCO_GLOBAL IMPLEMENTATION.
         cgc_check_digit          = 2
         OTHERS                   = 3.
   ENDMETHOD.
+
+
+  method ZIF_AGCO~GRAVAR_LOG.
+  endmethod.
 
 
   METHOD zif_agco~ler_centros.
@@ -309,7 +322,8 @@ CLASS ZCL_AGCO_GLOBAL IMPLEMENTATION.
   METHOD zif_agco~ler_materiais.
     SELECT matnr, meins, mfrpn
       FROM mara
-     WHERE matkl IN @it_tipos
+     WHERE matnr IN @it_materiais
+       AND matkl IN @it_tipos
        AND mfrnr IN @it_fornecedores
        AND lvorm = @abap_false
       INTO TABLE @rt_materiais.
@@ -374,9 +388,7 @@ CLASS ZCL_AGCO_GLOBAL IMPLEMENTATION.
         definir_criterios( it_werks[] ).
         carregar_dados( ).
         autenticar( ).
-        IF v_token IS NOT INITIAL.
-          preencher_saida( ).
-        ENDIF.
+        preencher_saida( ).
       CATCH zcx_agco INTO DATA(lx_agco).
         MESSAGE lx_agco TYPE 'I' DISPLAY LIKE 'E'.
       CATCH cx_ai_system_fault INTO DATA(lx_system_fault).

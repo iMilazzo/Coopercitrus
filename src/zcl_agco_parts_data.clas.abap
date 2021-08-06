@@ -1,54 +1,54 @@
-CLASS zcl_agco_parts_data DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_agco_global
-  CREATE PUBLIC .
+class ZCL_AGCO_PARTS_DATA definition
+  public
+  inheriting from ZCL_AGCO_GLOBAL
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    ALIASES processar
-      FOR zif_agco~processar .
-    ALIASES ty_r_werks
-      FOR zif_agco~ty_r_werks .
-    ALIASES ty_t_centros
-      FOR zif_agco~ty_t_centros .
-    ALIASES ty_t_materiais
-      FOR zif_agco~ty_t_materiais .
+  aliases PROCESSAR
+    for ZIF_AGCO~PROCESSAR .
+  aliases TY_R_WERKS
+    for ZIF_AGCO~TY_R_WERKS .
+  aliases TY_T_CENTROS
+    for ZIF_AGCO~TY_T_CENTROS .
+  aliases TY_T_MATERIAIS
+    for ZIF_AGCO~TY_T_MATERIAIS .
 
-    TYPES:
-      BEGIN OF ty_s_descricao,
+  types:
+    BEGIN OF ty_s_descricao,
         matnr TYPE matnr,
         maktx TYPE maktx,
       END OF ty_s_descricao .
-    TYPES:
-      ty_t_descricoes TYPE SORTED TABLE OF ty_s_descricao WITH UNIQUE KEY matnr .
-    TYPES:
-      BEGIN OF ty_s_avaliacao,
+  types:
+    ty_t_descricoes TYPE SORTED TABLE OF ty_s_descricao WITH UNIQUE KEY matnr .
+  types:
+    BEGIN OF ty_s_avaliacao,
         matnr TYPE matnr,
         bwkey TYPE bwkey,
         verpr TYPE p LENGTH 14 DECIMALS 2,
         peinh TYPE int4,
       END OF ty_s_avaliacao .
-    TYPES:
-      ty_t_avaliacoes TYPE SORTED TABLE OF ty_s_avaliacao WITH UNIQUE KEY matnr bwkey .
-    TYPES:
-      BEGIN OF ty_s_documento,
+  types:
+    ty_t_avaliacoes TYPE SORTED TABLE OF ty_s_avaliacao WITH UNIQUE KEY matnr bwkey .
+  types:
+    BEGIN OF ty_s_documento,
         matnr TYPE matnr,
         werks TYPE werks_d,
         budat TYPE budat,
       END OF ty_s_documento .
-    TYPES:
-      ty_t_documentos TYPE SORTED TABLE OF ty_s_documento WITH UNIQUE KEY matnr .
-    TYPES:
-      BEGIN OF ty_s_abertos,
+  types:
+    ty_t_documentos TYPE SORTED TABLE OF ty_s_documento WITH UNIQUE KEY matnr werks .
+  types:
+    BEGIN OF ty_s_abertos,
         matnr TYPE matnr,
         werks TYPE werks_d,
         menge TYPE menge_d,
         glmng TYPE glmng,
       END OF ty_s_abertos .
-    TYPES:
-      ty_t_abertos TYPE SORTED TABLE OF ty_s_abertos WITH UNIQUE KEY matnr .
-    TYPES:
-      BEGIN OF MESH ty_m_pecas,
+  types:
+    ty_t_abertos TYPE SORTED TABLE OF ty_s_abertos WITH UNIQUE KEY matnr werks .
+  types:
+    BEGIN OF MESH ty_m_pecas,
         materiais  TYPE ty_t_materiais  ASSOCIATION centro TO centros
                                                  ON matnr = matnr  USING KEY primary_key
                                         ASSOCIATION descricao TO descricoes
@@ -61,9 +61,11 @@ CLASS zcl_agco_parts_data DEFINITION
                                                  ON matnr = matnr
                                                 AND bwkey = werks USING KEY primary_key
                                         ASSOCIATION aberto TO abertos
-                                                 ON matnr = matnr USING KEY primary_key
+                                                 ON matnr = matnr
+                                                and werks = werks USING KEY primary_key
                                         ASSOCIATION documento TO documentos
-                                                 ON matnr = matnr USING KEY primary_key,
+                                                 ON matnr = matnr
+                                                and werks = werks USING KEY primary_key,
         descricoes TYPE ty_t_descricoes,
         avaliacoes TYPE ty_t_avaliacoes,
         abertos    TYPE ty_t_abertos,
@@ -71,14 +73,16 @@ CLASS zcl_agco_parts_data DEFINITION
 
       END OF MESH ty_m_pecas .
 
-    DATA m_pecas TYPE ty_m_pecas .
+  data M_PECAS type TY_M_PECAS .
 
-    METHODS zif_agco~carregar_dados
-        REDEFINITION .
-    METHODS zif_agco~definir_criterios
-        REDEFINITION .
-    METHODS zif_agco~preencher_saida
-        REDEFINITION .
+  methods ZIF_AGCO~CARREGAR_DADOS
+    redefinition .
+  methods ZIF_AGCO~DEFINIR_CRITERIOS
+    redefinition .
+  methods ZIF_AGCO~PREENCHER_SAIDA
+    redefinition .
+  methods ZIF_AGCO~GRAVAR_LOG
+    redefinition .
 protected section.
 private section.
 
@@ -90,6 +94,8 @@ private section.
     for ZIF_AGCO~R_LGORT .
   aliases RL_MATKL
     for ZIF_AGCO~R_MATKL .
+  aliases RL_MATNR
+    for ZIF_AGCO~R_MATNR .
   aliases RL_MFRNR
     for ZIF_AGCO~R_MFRNR .
   aliases RL_NFTYPE
@@ -120,6 +126,8 @@ private section.
     for ZIF_AGCO~ENVIAR .
   aliases FORMATAR_CNPJ
     for ZIF_AGCO~FORMATAR_CNPJ .
+  aliases GRAVAR_LOG
+    for ZIF_AGCO~GRAVAR_LOG .
   aliases LER_CENTROS
     for ZIF_AGCO~LER_CENTROS .
   aliases LER_CONSTANTES
@@ -170,7 +178,8 @@ CLASS ZCL_AGCO_PARTS_DATA IMPLEMENTATION.
 
   METHOD ler_avaliacoes.
     CHECK it_centros IS NOT INITIAL.
-    SELECT m~matnr, m~bwkey, SUM( m~verpr ), SUM( m~peinh )
+    SELECT DISTINCT
+           m~matnr, m~bwkey, SUM( m~verpr ), SUM( m~peinh )
       FROM @it_centros AS c
       JOIN mbew AS m ON m~matnr = c~matnr
                     AND m~bwkey = c~werks
@@ -186,14 +195,15 @@ CLASS ZCL_AGCO_PARTS_DATA IMPLEMENTATION.
     ENDMETHOD.
 
 
-  method LER_DESCRICOES.
-    select matnr, maktx
-      into table @rt_descricoes
-      from makt
+  METHOD ler_descricoes.
+    SELECT DISTINCT
+           matnr, maktx
+      INTO TABLE @rt_descricoes
+      FROM makt
        FOR ALL ENTRIES IN @it_materiais
-     where matnr = @it_materiais-matnr
-       and spras = @sy-langu.
-  endmethod.
+     WHERE matnr = @it_materiais-matnr
+       AND spras = @sy-langu.
+  ENDMETHOD.
 
 
   METHOD ler_documentos.
@@ -232,7 +242,8 @@ CLASS ZCL_AGCO_PARTS_DATA IMPLEMENTATION.
 
       "Carrega materiais por tipo e fornecedor
       m_pecas-materiais = ler_materiais( it_tipos = rl_matkl
-                                         it_fornecedores = rl_mfrnr ).
+                                         it_fornecedores = rl_mfrnr
+                                         it_materiais = rl_matnr ).
       IF m_pecas-materiais IS NOT INITIAL.
 
         MESSAGE s011(zpmm_agco) WITH CONV numc10( lines( m_pecas-materiais ) ) 'MATERIAIS'.
@@ -291,7 +302,14 @@ CLASS ZCL_AGCO_PARTS_DATA IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_agco~preencher_saida.
+  METHOD zif_agco~gravar_log.
+*CALL METHOD SUPER->ZIF_AGCO~GRAVAR_LOG
+*  EXPORTING
+*    IV_CNPJ       =
+*    IV_MESSAGE_ID =
+*    IS_OUTPUT     =
+*    IS_INPUT      =
+*    .
     TYPES:
       BEGIN OF ty_s_sdata,
         part_number                    TYPE c LENGTH 50,
@@ -331,6 +349,58 @@ CLASS ZCL_AGCO_PARTS_DATA IMPLEMENTATION.
       lt_log_hdr TYPE ty_t_log_hdr,
       lt_log_itm TYPE ty_t_log_itm.
 
+    FIELD-SYMBOLS <fs_output> TYPE zsend_parts.
+    FIELD-SYMBOLS <fs_input>  TYPE zresponse_parts.
+
+    ASSIGN is_output->* TO <fs_output>.
+    ASSIGN is_input->*  TO <fs_input>.
+
+    lt_log_hdr = VALUE ty_t_log_hdr(
+                  BASE lt_log_hdr
+                    (  interface = |02|
+                            cnpj = iv_cnpj
+                            data = v_data
+                            hora = v_hora
+                        rastreio = <fs_input>-response_parts-meta-tracking_id
+                          status = <fs_input>-response_parts-meta-status
+                      message_id = iv_message_id
+                         tamanho = 749
+                           sdata = CONV ty_s_sdata( CORRESPONDING #( <fs_output>-send_parts-data-part ) ) ) ).
+
+    IF <fs_input>-response_parts-meta-status <> |200| AND
+       <fs_input>-response_parts-meta-status <> |201|.
+
+      lt_log_itm = VALUE ty_t_log_itm(
+                    BASE lt_log_itm
+                     FOR i = 1 THEN i + 1 UNTIL i > lines( <fs_input>-response_parts-errors )
+                     LET ls_error = <fs_input>-response_parts-errors[ i ]
+                      IN (
+                        interface = |02|
+                             cnpj = iv_cnpj
+                             data = v_data
+                             hora = v_hora
+                         rastreio = <fs_input>-response_parts-meta-tracking_id
+                             item = i
+                            campo = ls_error-source-pointer
+                            valor = ls_error-source-value
+                          detalhe = ls_error-detail
+                             erro = ls_error-error_code ) ).
+
+    ENDIF.
+    INSERT zmm_agco_log_hdr FROM TABLE lt_log_hdr.
+    INSERT zmm_agco_log_itm FROM TABLE lt_log_itm.
+
+  ENDMETHOD.
+
+
+  METHOD zif_agco~preencher_saida.
+
+    DATA:
+      cs_output  TYPE REF TO data,
+      cs_input   TYPE REF TO data.
+
+    CHECK v_token IS NOT INITIAL.
+
     MESSAGE s008(zpmm_agco).
 
     GET RUN TIME FIELD DATA(lv_rtime_ini).
@@ -346,117 +416,84 @@ CLASS ZCL_AGCO_PARTS_DATA IMPLEMENTATION.
                                               data = VALUE #(
                               extraction_date_time = ler_timestamp( ) ) ) ).
 
-        IF m_pecas-centros IS NOT INITIAL.
+        LOOP AT m_pecas-centros ASSIGNING FIELD-SYMBOL(<fs_key>)
+                                GROUP BY ( werks = <fs_key>-werks
+                                            size = GROUP SIZE
+                                           index = GROUP INDEX )
+                                ASSIGNING FIELD-SYMBOL(<fs_member>).
 
-          LOOP AT m_pecas-centros ASSIGNING FIELD-SYMBOL(<fs_key>)
-                                  GROUP BY ( werks = <fs_key>-werks
-                                              size = GROUP SIZE
-                                             index = GROUP INDEX )
-                                  ASSIGNING FIELD-SYMBOL(<fs_member>).
+          ls_saida-send_parts-data-dealer_legal_number = formatar_cnpj( CONV #( lt_parceiros[ partner = <fs_member>-werks ]-taxnum ) ).
+          MESSAGE s019(zpmm_agco) WITH <fs_member>-size |peças| ls_saida-send_parts-data-dealer_legal_number.
 
-            ls_saida-send_parts-data-dealer_legal_number = formatar_cnpj( CONV #( lt_parceiros[ partner = <fs_member>-werks ]-taxnum ) ).
-            MESSAGE s019(zpmm_agco) WITH <fs_member>-size |peças| ls_saida-send_parts-data-dealer_legal_number.
+          LOOP AT GROUP <fs_member> ASSIGNING FIELD-SYMBOL(<fs_centro>).
 
-            LOOP AT GROUP <fs_member> ASSIGNING FIELD-SYMBOL(<fs_centro>).
+            ASSIGN m_pecas-centros\material[ <fs_centro> ] TO FIELD-SYMBOL(<fs_material>).
 
-              ASSIGN m_pecas-centros\material[ <fs_centro> ] TO FIELD-SYMBOL(<fs_material>).
+            DATA(ls_peca) = VALUE zparts_data_part(
+                              LET lv_descricao = VALUE #( m_pecas-materiais\descricao[ <fs_material> ]-maktx OPTIONAL )
+                                  ls_avaliacao = REDUCE ty_s_avaliacao(
+                                                   INIT l_avaliacao TYPE ty_s_avaliacao
+                                                    FOR GROUPS <fs_grupo> OF <fs_chave> IN m_pecas-centros\avaliacao[ <fs_centro> ]
+                                                        GROUP BY ( matnr = <fs_chave>-matnr count = GROUP SIZE )
+                                                    NEXT l_avaliacao-matnr = <fs_grupo>-matnr
+                                                         l_avaliacao-bwkey = abap_false
+                                                         l_avaliacao-peinh = REDUCE #( INIT l_peinh TYPE int4
+                                                                                FOR m IN GROUP <fs_grupo>
+                                                                               NEXT l_peinh = l_peinh + m-peinh )
+                                                         l_avaliacao-verpr = REDUCE #( INIT l_verpr TYPE ty_s_avaliacao-verpr
+                                                                                FOR m IN GROUP <fs_grupo>
+                                                                               NEXT l_verpr = l_verpr + m-verpr ) )
+                                    ls_abertos = VALUE #( m_pecas-centros\aberto[ <fs_centro> ] OPTIONAL )
+                            lv_disponibilidade = VALUE #( m_pecas-centros\documento[ <fs_centro> ]-budat DEFAULT |19000101| )
+                               IN
+                                   part_number = <fs_material>-matnr
+                              agco_part_number = <fs_material>-mfrpn
+                                 original_part = abap_true
+                                   description = lv_descricao
+                                     stockable = abap_true
+                                last_sale_date = |19000101|
+                preferred_supplier_legal_numbe = |55.962.369/0009-24|
+                                  average_cost = COND #( WHEN ls_avaliacao-peinh > 0 THEN ls_avaliacao-verpr / ls_avaliacao-peinh )
+                               unit_of_measure = <fs_material>-meins
+                      dealer_parts_per_package = 1
+                                 currency_code = |BRL|
+                          open_purchase_orders = ls_abertos-menge - ls_abertos-glmng
+                          first_available_date = lv_disponibilidade  )  .
 
-              DATA(ls_peca) = VALUE zparts_data_part(
-                                LET lv_descricao = VALUE #( m_pecas-materiais\descricao[ <fs_material> ]-maktx OPTIONAL )
-                                    ls_avaliacao = REDUCE ty_s_avaliacao(
-                                                     INIT l_avaliacao TYPE ty_s_avaliacao
-                                                      FOR GROUPS <fs_grupo> OF <fs_chave> IN m_pecas-centros\avaliacao[ <fs_centro> ]
-                                                          GROUP BY ( matnr = <fs_chave>-matnr count = GROUP SIZE )
-                                                      NEXT l_avaliacao-matnr = <fs_grupo>-matnr
-                                                           l_avaliacao-bwkey = abap_false
-                                                           l_avaliacao-peinh = REDUCE #( INIT l_peinh TYPE int4
-                                                                                  FOR m IN GROUP <fs_grupo>
-                                                                                 NEXT l_peinh = l_peinh + m-peinh )
-                                                           l_avaliacao-verpr = REDUCE #( INIT l_verpr TYPE ty_s_avaliacao-verpr
-                                                                                  FOR m IN GROUP <fs_grupo>
-                                                                                 NEXT l_verpr = l_verpr + m-verpr ) )
-                                      ls_abertos = VALUE #( m_pecas-centros\aberto[ <fs_centro> ] OPTIONAL )
-                              lv_disponibilidade = VALUE #( m_pecas-centros\documento[ <fs_centro> ]-budat DEFAULT |19000101| )
-                                 IN
-                                     part_number = <fs_material>-matnr
-                                agco_part_number = <fs_material>-mfrpn
-                                   original_part = abap_true
-                                     description = lv_descricao
-                                       stockable = abap_true
-                                  last_sale_date = |19000101|
-                  preferred_supplier_legal_numbe = |55.962.369/0009-24|
-                                    average_cost = COND #( WHEN ls_avaliacao-peinh > 0 THEN ls_avaliacao-verpr / ls_avaliacao-peinh )
-                                 unit_of_measure = <fs_material>-meins
-                        dealer_parts_per_package = 1
-                                   currency_code = |BRL|
-                            open_purchase_orders = ls_abertos-menge - ls_abertos-glmng
-                            first_available_date = lv_disponibilidade  )  .
+            IF v_teste IS INITIAL.
 
-              IF v_teste IS INITIAL.
+              ls_saida-send_parts-data-part = ls_peca.
 
-                ls_saida-send_parts-data-part = ls_peca.
+              DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
+              lo_sender->si_parts_outbound( EXPORTING output = ls_saida
+                                            IMPORTING input = DATA(ls_input)  ).
+              lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
 
-                DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
-                lo_sender->si_parts_outbound( EXPORTING output = ls_saida
-                                              IMPORTING input = DATA(ls_input)  ).
-                lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
+              CREATE DATA cs_output LIKE ls_saida.
+              ASSIGN cs_output->* TO FIELD-SYMBOL(<fs_output>).
+              <fs_output> = ls_saida.
 
-                lt_log_hdr = VALUE ty_t_log_hdr(
-                              BASE lt_log_hdr
-                                (  interface = |02|
-                                        cnpj = lt_parceiros[ 1 ]-taxnum
-                                        data = v_data
-                                        hora = v_hora
-                                    rastreio = ls_input-response_parts-meta-tracking_id
-                                      status = ls_input-response_parts-meta-status
-                                  message_id = lo_protocol_messageid->get_message_id( )
-                                     tamanho = 749
-                                       sdata = CONV ty_s_sdata( CORRESPONDING #( ls_saida-send_parts-data-part ) ) ) ).
+              CREATE DATA cs_input LIKE ls_input.
+              ASSIGN cs_input->* TO FIELD-SYMBOL(<fs_input>).
+              <fs_input> = ls_input.
 
-                IF ls_input-response_parts-meta-status <> |200| AND
-                   ls_input-response_parts-meta-status <> |201|.
+              gravar_log( iv_cnpj = CONV #( lt_parceiros[ partner = <fs_member>-werks ]-taxnum )
+                    iv_message_id = lo_protocol_messageid->get_message_id( )
+                        is_output = cs_output
+                         is_input = cs_input ).
 
-                  lt_log_itm = VALUE ty_t_log_itm(
-                                BASE lt_log_itm
-                                 FOR i = 1 THEN i + 1 UNTIL i > lines( ls_input-response_parts-errors )
-                                 LET ls_error = ls_input-response_parts-errors[ i ]
-                                  IN (
-                                    interface = |02|
-                                         cnpj = lt_parceiros[ 1 ]-taxnum
-                                         data = v_data
-                                         hora = v_hora
-                                     rastreio = ls_input-response_parts-meta-tracking_id
-                                         item = i
-                                        campo = ls_error-source-pointer
-                                        valor = ls_error-source-value
-                                      detalhe = ls_error-detail
-                                         erro = ls_error-error_code ) ).
-
-                ENDIF.
-
-              ENDIF.
-
-            ENDLOOP.
+            ENDIF.
 
           ENDLOOP.
 
-          MESSAGE s010(zpmm_agco).
+        ENDLOOP.
 
-          IF v_teste IS INITIAL.
-
-            INSERT zmm_agco_log_hdr FROM TABLE lt_log_hdr.
-            INSERT zmm_agco_log_itm FROM TABLE lt_log_itm.
-            COMMIT WORK.
-
-          ENDIF.
-
-        ELSE.
-
-          RAISE EXCEPTION TYPE zcx_agco MESSAGE e018(zpmm_agco).
-
-        ENDIF.
+        MESSAGE s010(zpmm_agco).
 
       CATCH cx_ai_system_fault INTO DATA(lo_exception).
+        MESSAGE e021(zpmm_agco).
+        MESSAGE e022(zpmm_agco).
+        MESSAGE e000(zpmm_agco) WITH lo_exception->get_text( ).
 
     ENDTRY.
 

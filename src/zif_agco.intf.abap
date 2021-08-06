@@ -50,6 +50,8 @@ interface ZIF_AGCO
   types:
     ty_r_nftype TYPE RANGE OF j_1bnftype .
   types:
+    ty_r_matnr type RANGE OF matnr .
+  types:
     BEGIN OF ty_s_parceiro,
       partner TYPE bu_partner,
       taxnum  TYPE bptaxnum,
@@ -58,6 +60,7 @@ interface ZIF_AGCO
     ty_t_parceiros TYPE SORTED TABLE OF ty_s_parceiro WITH UNIQUE KEY partner
                    WITH NON-UNIQUE SORTED KEY cnpj COMPONENTS taxnum .
 
+  data R_MATNR type TY_R_MATNR .
   data R_MATKL type TY_R_MATKL .
   data R_MFRNR type TY_R_MFRNR .
   data T_CONSTANTES type TY_T_TVARVC .
@@ -87,6 +90,7 @@ interface ZIF_AGCO
     importing
       !IT_TIPOS type TY_R_MATKL
       !IT_FORNECEDORES type TY_R_MFRNR
+      !IT_MATERIAIS type TY_R_MATNR optional
     returning
       value(RT_MATERIAIS) type TY_T_MATERIAIS .
   methods LER_CONSTANTES
@@ -147,4 +151,13 @@ interface ZIF_AGCO
   methods DEFINIR_MODO_TESTE
     importing
       !IV_TESTE type ABAP_BOOL optional .
+  methods GRAVAR_LOG
+    importing
+      !IV_CNPJ type ZDEMM_AGCO_DLN
+      !IV_MESSAGE_ID type SXMSMGUID
+      !IS_OUTPUT type ref to DATA
+      !IS_INPUT type ref to DATA .
+  methods DEFINIR_MATERIAIS
+    importing
+      !IT_MATNR type TY_R_MATNR .
 endinterface.

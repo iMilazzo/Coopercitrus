@@ -131,6 +131,8 @@ public section.
     redefinition .
   methods ZIF_AGCO~PREENCHER_SAIDA
     redefinition .
+  methods ZIF_AGCO~GRAVAR_LOG
+    redefinition .
 protected section.
 private section.
 
@@ -142,6 +144,8 @@ private section.
     for ZIF_AGCO~R_LGORT .
   aliases RL_MATKL
     for ZIF_AGCO~R_MATKL .
+  aliases RL_MATNR
+    for ZIF_AGCO~R_MATNR .
   aliases RL_MFRNR
     for ZIF_AGCO~R_MFRNR .
   aliases RL_NFTYPE
@@ -172,6 +176,8 @@ private section.
     for ZIF_AGCO~ENVIAR .
   aliases FORMATAR_CNPJ
     for ZIF_AGCO~FORMATAR_CNPJ .
+  aliases GRAVAR_LOG
+    for ZIF_AGCO~GRAVAR_LOG .
   aliases LER_CENTROS
     for ZIF_AGCO~LER_CENTROS .
   aliases LER_CONSTANTES
@@ -329,7 +335,8 @@ CLASS ZCL_AGCO_INVENTORY_DATA IMPLEMENTATION.
 
       "Carrega materiais por tipo e fornecedor
       m_inventario-materiais = ler_materiais( it_tipos = rl_matkl
-                                              it_fornecedores = rl_mfrnr ).
+                                              it_fornecedores = rl_mfrnr
+                                              it_materiais = rl_matnr ).
 
       IF m_inventario-materiais IS NOT INITIAL.
 
@@ -423,11 +430,14 @@ CLASS ZCL_AGCO_INVENTORY_DATA IMPLEMENTATION.
 
     lv_doctyp = VALUE knttp( lt_constantes[ name = |ZAGCO_ID_DOCTYP| type = |P| numb = |0000| ]-low DEFAULT |6| ).
     lv_direct = VALUE knttp( lt_constantes[ name = |ZAGCO_ID_DIRECT| type = |P| numb = |0000| ]-low DEFAULT |2| ).
+
+    v_meses  = VALUE i( lt_constantes[ name = |ZAGCO_MONTHS| type = |P| numb = |0000| ]-low DEFAULT |-36| ).
+*    v_erdat = NEW cl_hrpad_date_computations( )->add_months_to_date( EXPORTING start_date = sy-datum
+*                                                                                    months = v_meses ).
   ENDMETHOD.
 
 
-  METHOD zif_agco~preencher_saida.
-
+  METHOD zif_agco~gravar_log.
     TYPES:
       BEGIN OF ty_s_sdata,
         part_number                    TYPE c LENGTH 50,
@@ -449,6 +459,57 @@ CLASS ZCL_AGCO_INVENTORY_DATA IMPLEMENTATION.
     DATA:
       lt_log_hdr TYPE ty_t_log_hdr,
       lt_log_itm TYPE ty_t_log_itm.
+
+    FIELD-SYMBOLS <fs_output> TYPE zsend_inventory_out.
+    FIELD-SYMBOLS <fs_input>  TYPE zresponse_inventory_out.
+
+    "   Moving the reference to a field-symbols
+    ASSIGN is_output->* TO <fs_output>.
+    ASSIGN is_input->*  TO <fs_input>.
+
+    lt_log_hdr = VALUE ty_t_log_hdr(
+                  BASE lt_log_hdr
+                    (  interface = |01|
+                            cnpj = iv_cnpj
+                            data = v_data
+                            hora = v_hora
+                        rastreio = <fs_input>-response_inventory_out-meta-tracking_id
+                          status = <fs_input>-response_inventory_out-meta-status
+                      message_id = iv_message_id
+                         tamanho = 140
+                           sdata = CONV ty_s_sdata( CORRESPONDING #( <fs_output>-send_inventory_out-data-part ) ) ) ).
+
+    IF <fs_input>-response_inventory_out-meta-status <> |200| AND
+       <fs_input>-response_inventory_out-meta-status <> |201|.
+
+      lt_log_itm = VALUE ty_t_log_itm(
+                    BASE lt_log_itm
+                     FOR i = 1 THEN i + 1 UNTIL i > lines( <fs_input>-response_inventory_out-errors )
+                     LET ls_error = <fs_input>-response_inventory_out-errors[ i ]
+                      IN (
+                        interface = |01|
+                             cnpj = iv_cnpj
+                             data = v_data
+                             hora = v_hora
+                         rastreio = <fs_input>-response_inventory_out-meta-tracking_id
+                             item = i
+                            campo = ls_error-source-pointer
+                            valor = ls_error-source-value
+                          detalhe = ls_error-detail
+                             erro = ls_error-error_code ) ).
+    ENDIF.
+    INSERT zmm_agco_log_hdr FROM TABLE lt_log_hdr.
+    INSERT zmm_agco_log_itm FROM TABLE lt_log_itm.
+  ENDMETHOD.
+
+
+  METHOD zif_agco~preencher_saida.
+
+    DATA:
+      cs_output  TYPE REF TO data,
+      cs_input   TYPE REF TO data.
+
+    CHECK v_token IS NOT INITIAL.
 
     MESSAGE s008(zpmm_agco).
 
@@ -506,6 +567,7 @@ CLASS ZCL_AGCO_INVENTORY_DATA IMPLEMENTATION.
                quantity_returned_by_dealer = lv_meng2 ).
 
             IF v_teste IS INITIAL.
+
               ls_saida-send_inventory_out-data-part = ls_peca.
               DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
 
@@ -514,53 +576,29 @@ CLASS ZCL_AGCO_INVENTORY_DATA IMPLEMENTATION.
 
               lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
 
-              lt_log_hdr = VALUE ty_t_log_hdr(
-                            BASE lt_log_hdr
-                              (  interface = |01|
-                                      cnpj = lt_parceiros[ 1 ]-taxnum
-                                      data = v_data
-                                      hora = v_hora
-                                  rastreio = ls_input-response_inventory_out-meta-tracking_id
-                                    status = ls_input-response_inventory_out-meta-status
-                                message_id = lo_protocol_messageid->get_message_id( )
-                                   tamanho = 140
-                                     sdata = CONV ty_s_sdata( CORRESPONDING #( ls_saida-send_inventory_out-data-part ) ) ) ).
+              CREATE DATA cs_output LIKE ls_saida.
+              ASSIGN cs_output->* TO FIELD-SYMBOL(<fs_output>).
+              <fs_output> = ls_saida.
 
-              IF ls_input-response_inventory_out-meta-status <> |200| AND
-                 ls_input-response_inventory_out-meta-status <> |201|.
+              CREATE DATA cs_input LIKE ls_input.
+              ASSIGN cs_input->* TO FIELD-SYMBOL(<fs_input>).
+              <fs_input> = ls_input.
 
-                lt_log_itm = VALUE ty_t_log_itm(
-                              BASE lt_log_itm
-                               FOR i = 1 THEN i + 1 UNTIL i > lines( ls_input-response_inventory_out-errors )
-                               LET ls_error = ls_input-response_inventory_out-errors[ i ]
-                                IN (
-                                  interface = |01|
-                                       cnpj = lt_parceiros[ 1 ]-taxnum
-                                       data = v_data
-                                       hora = v_hora
-                                   rastreio = ls_input-response_inventory_out-meta-tracking_id
-                                       item = i
-                                      campo = ls_error-source-pointer
-                                      valor = ls_error-source-value
-                                    detalhe = ls_error-detail
-                                       erro = ls_error-error_code ) ).
+              gravar_log( iv_cnpj = CONV #( lt_parceiros[ partner = <fs_member>-werks ]-taxnum )
+                    iv_message_id = lo_protocol_messageid->get_message_id( )
+                        is_output = cs_output
+                         is_input = cs_input ).
 
-              ENDIF.
             ENDIF.
           ENDLOOP.
         ENDLOOP.
 
         MESSAGE s010(zpmm_agco).
 
-        IF v_teste IS INITIAL.
-
-          INSERT zmm_agco_log_hdr FROM TABLE lt_log_hdr.
-          INSERT zmm_agco_log_itm FROM TABLE lt_log_itm.
-          COMMIT WORK.
-
-        ENDIF.
-
       CATCH cx_ai_system_fault INTO DATA(lo_exception).
+        MESSAGE e021(zpmm_agco).
+        MESSAGE e022(zpmm_agco).
+        MESSAGE e000(zpmm_agco) WITH lo_exception->get_text( ).
 
     ENDTRY.
 

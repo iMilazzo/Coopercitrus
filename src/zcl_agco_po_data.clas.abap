@@ -1,23 +1,24 @@
-class ZCL_AGCO_PO_DATA definition
-  public
-  inheriting from ZCL_AGCO_GLOBAL
-  create public .
+CLASS zcl_agco_po_data DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_agco_global
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  aliases PREENCHER_SAIDA
-    for ZIF_AGCO~PREENCHER_SAIDA .
-  aliases PROCESSAR
-    for ZIF_AGCO~PROCESSAR .
+    ALIASES preencher_saida
+      FOR zif_agco~preencher_saida .
+    ALIASES processar
+      FOR zif_agco~processar .
 
-  types:
-    BEGIN OF ty_s_nota,
+    TYPES:
+      BEGIN OF ty_s_nota,
         docnum     TYPE j_1bdocnum,
         docdat     TYPE j_1bdocdat,
         pstdat     TYPE j_1bpstdat,
         belnr      TYPE belnr_d,
         gjahr      TYPE gjahr,
         bukrs      TYPE bukrs,
+        branch     TYPE j_1bbranc_,
         nfenum     TYPE j_1bnfnum9,
         series     TYPE j_1bseries,
         parid      TYPE j_1bparid,
@@ -25,11 +26,12 @@ public section.
         name1      TYPE name1_gp,
         waerk      TYPE waerk,
       END OF ty_s_nota .
-  types:
-    ty_t_notas TYPE SORTED TABLE OF ty_s_nota WITH UNIQUE KEY docnum
-                   WITH NON-UNIQUE SORTED KEY belnr COMPONENTS belnr gjahr bukrs .
-  types:
-    BEGIN OF ty_s_fatura,
+    TYPES:
+      ty_t_notas TYPE SORTED TABLE OF ty_s_nota WITH UNIQUE KEY docnum
+                     WITH NON-UNIQUE SORTED KEY belnr COMPONENTS belnr gjahr bukrs
+                     with NON-UNIQUE SORTED KEY branch COMPONENTS branch .
+    TYPES:
+      BEGIN OF ty_s_fatura,
         belnr TYPE belnr_d,
         gjahr TYPE gjahr,
         bukrs TYPE bukrs,
@@ -39,20 +41,20 @@ public section.
         menge TYPE menge_d,
         wrbtr TYPE wrbtr,
       END OF ty_s_fatura .
-  types:
-    ty_t_faturas TYPE SORTED TABLE OF ty_s_fatura WITH UNIQUE KEY belnr gjahr bukrs buzei
-                                                        WITH NON-UNIQUE SORTED KEY pedido COMPONENTS ebeln ebelp .
-  types:
-    BEGIN OF ty_s_pedido,
+    TYPES:
+      ty_t_faturas TYPE SORTED TABLE OF ty_s_fatura WITH UNIQUE KEY belnr gjahr bukrs buzei
+                                                          WITH NON-UNIQUE SORTED KEY pedido COMPONENTS ebeln ebelp .
+    TYPES:
+      BEGIN OF ty_s_pedido,
         ebeln TYPE ebeln,
         ebelp TYPE ebelp,
         matnr TYPE matnr,
         menge TYPE menge_d,
       END OF ty_s_pedido .
-  types:
-    ty_t_pedidos TYPE SORTED TABLE OF ty_s_pedido WITH UNIQUE KEY ebeln ebelp .
-  types:
-    BEGIN OF ty_s_imposto,
+    TYPES:
+      ty_t_pedidos TYPE SORTED TABLE OF ty_s_pedido WITH UNIQUE KEY ebeln ebelp .
+    TYPES:
+      BEGIN OF ty_s_imposto,
         docnum TYPE j_1bdocnum,
         taxtyp TYPE j_1btaxtyp,
         base   TYPE j_1bbase,
@@ -60,10 +62,10 @@ public section.
         excbas TYPE j_1bexcbas,
         othbas TYPE j_1bothbas,
       END OF ty_s_imposto .
-  types:
-    ty_t_impostos TYPE SORTED TABLE OF ty_s_imposto WITH UNIQUE KEY docnum taxtyp .
-  types:
-    BEGIN OF MESH ty_m_pedidos,
+    TYPES:
+      ty_t_impostos TYPE SORTED TABLE OF ty_s_imposto WITH UNIQUE KEY docnum taxtyp .
+    TYPES:
+      BEGIN OF MESH ty_m_pedidos,
         notas    TYPE ty_t_notas ASSOCIATION fatura TO faturas
                                           ON belnr = belnr
                                          AND gjahr = gjahr
@@ -76,20 +78,20 @@ public section.
         pedidos  TYPE ty_t_pedidos,
 
       END OF MESH ty_m_pedidos .
-  types:
-    ty_r_branch TYPE RANGE OF J_1BBRANC_ .
+    TYPES:
+      ty_r_branch TYPE RANGE OF j_1bbranc_ .
 
-  data RL_BRANCH type TY_R_BRANCH .
-  data M_PEDIDOS type TY_M_PEDIDOS .
+    DATA rl_branch TYPE ty_r_branch .
+    DATA m_pedidos TYPE ty_m_pedidos .
 
-  methods ZIF_AGCO~CARREGAR_DADOS
-    redefinition .
-  methods ZIF_AGCO~DEFINIR_CRITERIOS
-    redefinition .
-  methods ZIF_AGCO~ENVIAR
-    redefinition .
-  methods ZIF_AGCO~PREENCHER_SAIDA
-    redefinition .
+    METHODS zif_agco~carregar_dados
+        REDEFINITION .
+    METHODS zif_agco~definir_criterios
+        REDEFINITION .
+    METHODS zif_agco~preencher_saida
+        REDEFINITION .
+    METHODS zif_agco~gravar_log
+        REDEFINITION .
 protected section.
 private section.
 
@@ -131,6 +133,8 @@ private section.
     for ZIF_AGCO~ENVIAR .
   aliases FORMATAR_CNPJ
     for ZIF_AGCO~FORMATAR_CNPJ .
+  aliases GRAVAR_LOG
+    for ZIF_AGCO~GRAVAR_LOG .
   aliases LER_CENTROS
     for ZIF_AGCO~LER_CENTROS .
   aliases LER_CONSTANTES
@@ -245,7 +249,7 @@ CLASS ZCL_AGCO_PO_DATA IMPLEMENTATION.
 
 
   METHOD ler_notas.
-    SELECT docnum, docdat, pstdat, belnr, gjahr, bukrs,
+    SELECT docnum, docdat, pstdat, belnr, gjahr, bukrs, branch,
            nfenum, series, parid, cnpj_bupla, name1
       INTO TABLE @rt_notas
       FROM j_1bnfdoc
@@ -307,7 +311,17 @@ CLASS ZCL_AGCO_PO_DATA IMPLEMENTATION.
 
 
   METHOD zif_agco~definir_criterios.
-    message s004(zpmm_agco).
+    MESSAGE s004(zpmm_agco).
+
+    "Definir tipo de material e quais fornecedores
+    DATA(lr_matkl) = criar_range( iv_name = |ZAGCO_MATKL| iv_data_element = |MATKL| ).
+    ASSIGN lr_matkl->* TO FIELD-SYMBOL(<fs_matkl>).
+    rl_matkl = <fs_matkl>.
+
+    DATA(lr_mfrnr) = criar_range( iv_name = |ZAGCO_MFRNR| iv_data_element = |MFRNR| ).
+    ASSIGN lr_mfrnr->* TO FIELD-SYMBOL(<fs_mfrnr>).
+    rl_mfrnr = <fs_mfrnr>.
+
     lv_doctyp = VALUE doctyp( lt_constantes[ name = |ZAGCO_PO_DOCTYP| type = |P| numb = |0000| ]-low DEFAULT |6| ).
     lv_direct = VALUE direct( lt_constantes[ name = |ZAGCO_PO_DIRECT| type = |P| numb = |0000| ]-low DEFAULT |2| ).
     lv_bukrs  = VALUE  bukrs( lt_constantes[ name = |ZAGCO_PO_BUKRS|  type = |P| numb = |0000| ]-low DEFAULT |2| ).
@@ -319,23 +333,15 @@ CLASS ZCL_AGCO_PO_DATA IMPLEMENTATION.
   ENDMETHOD.
 
 
-  method ZIF_AGCO~ENVIAR.
-*CALL METHOD SUPER->ZIF_AGCO~ENVIAR
+  METHOD zif_agco~gravar_log.
+*CALL METHOD SUPER->ZIF_AGCO~GRAVAR_LOG
 *  EXPORTING
-*    IS_INVENTORY_DATA =
+*    IV_CNPJ       =
+*    IV_MESSAGE_ID =
+*    IS_OUTPUT     =
+*    IS_INPUT      =
 *    .
-  endmethod.
-
-
-  METHOD zif_agco~preencher_saida.
     TYPES:
-      BEGIN OF ty_s_payload,
-        msgguid TYPE sxmsmsglst-msgguid,
-        pid     TYPE sxmsmsglst-pid,
-        payload TYPE xstring,
-      END OF ty_s_payload,
-      ty_t_payload TYPE SORTED TABLE OF ty_s_payload  WITH NON-UNIQUE KEY msgguid pid,
-
       BEGIN OF ty_s_sdata,
         order_id                      TYPE c LENGTH 50,
         order_agco                    TYPE c LENGTH 10,
@@ -358,6 +364,57 @@ CLASS ZCL_AGCO_PO_DATA IMPLEMENTATION.
       lt_log_hdr TYPE ty_t_log_hdr,
       lt_log_itm TYPE ty_t_log_itm.
 
+    FIELD-SYMBOLS <fs_output> TYPE ZSEND_PURCHASE.
+    FIELD-SYMBOLS <fs_input>  TYPE ZRESPONSE_PURCHASE1.
+
+    ASSIGN is_output->* TO <fs_output>.
+    ASSIGN is_input->*  TO <fs_input>.
+
+    lt_log_hdr = VALUE ty_t_log_hdr(
+                  BASE lt_log_hdr
+                    (  interface = |03|
+                            cnpj = iv_cnpj
+                            data = v_data
+                            hora = v_hora
+                        rastreio = <fs_input>-response_purchase-meta-tracking_id
+                          status = <fs_input>-response_purchase-meta-status
+                      message_id = iv_message_id
+                         tamanho = 518
+                           sdata = CONV ty_s_sdata( CORRESPONDING #( <fs_output>-send_purchase-data-order ) ) ) ).
+
+    IF <fs_input>-response_purchase-meta-status <> |200| AND
+       <fs_input>-response_purchase-meta-status <> |201|.
+
+      lt_log_itm = VALUE ty_t_log_itm(
+                    BASE lt_log_itm
+                     FOR i = 1 THEN i + 1 UNTIL i > lines( <fs_input>-response_purchase-errors )
+                     LET ls_error = <fs_input>-response_purchase-errors[ i ]
+                      IN (
+                        interface = |03|
+                             cnpj = iv_cnpj
+                             data = v_data
+                             hora = v_hora
+                         rastreio = <fs_input>-response_purchase-meta-tracking_id
+                             item = i
+                            campo = ls_error-source-pointer
+                            valor = REDUCE #(
+                                      INIT l_value TYPE string
+                                       FOR <fs_value> IN ls_error-source-values
+                                      NEXT l_value = |{ l_value }, { <fs_value> }| )
+                          detalhe = ls_error-detail
+                             erro = ls_error-error_code ) ).
+
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD zif_agco~preencher_saida.
+
+    DATA:
+      cs_output TYPE REF TO data,
+      cs_input  TYPE REF TO data.
+
     MESSAGE s008(zpmm_agco).
 
     GET RUN TIME FIELD DATA(lv_rtime_ini).
@@ -372,86 +429,70 @@ CLASS ZCL_AGCO_PO_DATA IMPLEMENTATION.
                                                  data = VALUE #(
                                          extraction_date_time = ler_timestamp( ) ) ) ) .
 
-        LOOP AT m_pedidos-notas ASSIGNING FIELD-SYMBOL(<fs_nota>).
+        LOOP AT m_pedidos-notas ASSIGNING FIELD-SYMBOL(<fs_key>)
+                                USING KEY branch
+                                GROUP BY ( branch = <fs_key>-branch
+                                             size = GROUP SIZE
+                                            index = GROUP INDEX )
+                                ASSIGNING FIELD-SYMBOL(<fs_group>).
 
-          LOOP AT m_pedidos-notas\fatura[ <fs_nota> ] ASSIGNING FIELD-SYMBOL(<fs_fatura>).
-
-            DATA(ls_po) = VALUE zpurchase_data_order(
-                            order_id = |{ <fs_nota>-nfenum }{ <fs_nota>-series }{ <fs_nota>-parid }|
-                   order_id_original = <fs_fatura>-ebeln
-       delivered_dealer_legal_number = formatar_cnpj( CONV #( lt_parceiros[ 1 ]-taxnum ) )
-                          order_date = <fs_nota>-docdat
-                          order_type = |STOCK_ORDER|
-               supplier_legal_number = <fs_nota>-cnpj_bupla
-                       supplier_name = <fs_nota>-name1 ).
+          DATA(lv_werks) = |C{ <fs_group>+1(3) }|.
+          ls_saida-send_purchase-data-dealer_legal_number = formatar_cnpj( CONV #( lt_parceiros[ partner = lv_werks ]-taxnum ) ).
+          LOOP AT GROUP <fs_group> ASSIGNING FIELD-SYMBOL(<fs_nota>).
 
 
-            DATA(lt_item) = VALUE zpurchase_data_items_tab(
-                                         FOR <fs_pedido> IN m_pedidos-faturas\pedido[ <fs_fatura> ]
-                                         LET l_pendente = <fs_pedido>-menge - <fs_fatura>-menge
-                                          IN
-                         ( order_line_number = <fs_pedido>-ebelp
-                                 part_number = <fs_pedido>-matnr
-                               received_date = <fs_nota>-pstdat
-                          requested_quantity = <fs_pedido>-menge
-                           received_quantity = <fs_fatura>-menge
-                               open_quantity = l_pendente
-                                 line_status = COND #( WHEN l_pendente > 0 THEN |OPEN| ELSE |CLOSED| )
-                                   net_value = COND #( WHEN <fs_fatura>-menge > 0 THEN <fs_fatura>-wrbtr / <fs_fatura>-menge ELSE 0 )
-                                    currency = COND #( WHEN <fs_nota>-waerk IS INITIAL THEN |BRL| ELSE <fs_nota>-waerk  ) ) ) .
 
-            ls_po-items = lt_item[].
-            ls_saida-send_purchase-data-order = ls_po.
+            LOOP AT m_pedidos-notas\fatura[ <fs_nota> ] ASSIGNING FIELD-SYMBOL(<fs_fatura>).
 
-            DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
-            lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
+              DATA(ls_po) = VALUE zpurchase_data_order(
+                              order_id = |{ <fs_nota>-nfenum }{ <fs_nota>-series }{ <fs_nota>-parid }|
+                     order_id_original = <fs_fatura>-ebeln
+         delivered_dealer_legal_number = formatar_cnpj( CONV #( lt_parceiros[ 1 ]-taxnum ) )
+                            order_date = <fs_nota>-docdat
+                            order_type = |STOCK_ORDER|
+                 supplier_legal_number = <fs_nota>-cnpj_bupla
+                         supplier_name = <fs_nota>-name1 ).
 
-            lo_sender->si_purchase_outbound( EXPORTING output = ls_saida
-                                             IMPORTING  input = DATA(ls_input)  ).
 
-            lt_log_hdr = VALUE ty_t_log_hdr(
-                          BASE lt_log_hdr
-                            (  interface = |03|
-                                    cnpj = lt_parceiros[ 1 ]-taxnum
-                                    data = v_data
-                                    hora = v_hora
-                                rastreio = ls_input-response_purchase-meta-tracking_id
-                                  status = ls_input-response_purchase-meta-status
-                              message_id = lo_protocol_messageid->get_message_id( )
-                                 tamanho = 518
-                                   sdata = CONV ty_s_sdata( CORRESPONDING #( ls_saida-send_purchase-data-order ) ) ) ).
+              DATA(lt_item) = VALUE zpurchase_data_items_tab(
+                                           FOR <fs_pedido> IN m_pedidos-faturas\pedido[ <fs_fatura> ]
+                                           LET l_pendente = <fs_pedido>-menge - <fs_fatura>-menge
+                                            IN
+                           ( order_line_number = <fs_pedido>-ebelp
+                                   part_number = <fs_pedido>-matnr
+                                 received_date = <fs_nota>-pstdat
+                            requested_quantity = <fs_pedido>-menge
+                             received_quantity = <fs_fatura>-menge
+                                 open_quantity = l_pendente
+                                   line_status = COND #( WHEN l_pendente > 0 THEN |OPEN| ELSE |CLOSED| )
+                                     net_value = COND #( WHEN <fs_fatura>-menge > 0 THEN <fs_fatura>-wrbtr / <fs_fatura>-menge ELSE 0 )
+                                      currency = COND #( WHEN <fs_nota>-waerk IS INITIAL THEN |BRL| ELSE <fs_nota>-waerk  ) ) ) .
 
-            IF ls_input-response_purchase-meta-status <> |200| AND
-               ls_input-response_purchase-meta-status <> |201|.
+              ls_po-items = lt_item[].
+              ls_saida-send_purchase-data-order = ls_po.
 
-              lt_log_itm = VALUE ty_t_log_itm(
-                            BASE lt_log_itm
-                             FOR i = 1 THEN i + 1 UNTIL i > lines( ls_input-response_purchase-errors )
-                             LET ls_error = ls_input-response_purchase-errors[ i ]
-                              IN (
-                                interface = |03|
-                                     cnpj = lt_parceiros[ 1 ]-taxnum
-                                     data = v_data
-                                     hora = v_hora
-                                 rastreio = ls_input-response_purchase-meta-tracking_id
-                                     item = i
-                                    campo = ls_error-source-pointer
-                                    valor = REDUCE #(
-                                              INIT l_value TYPE string
-                                               FOR <fs_value> IN ls_error-source-values
-                                              NEXT l_value = |{ l_value }, { <fs_value> }| )
-                                  detalhe = ls_error-detail
-                                     erro = ls_error-error_code ) ).
+              DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
+              lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
 
-            ENDIF.
+              lo_sender->si_purchase_outbound( EXPORTING output = ls_saida
+                                               IMPORTING  input = DATA(ls_input)  ).
 
+              CREATE DATA cs_output LIKE ls_saida.
+              ASSIGN cs_output->* TO FIELD-SYMBOL(<fs_output>).
+              <fs_output> = ls_saida.
+
+              CREATE DATA cs_input LIKE ls_input.
+              ASSIGN cs_input->* TO FIELD-SYMBOL(<fs_input>).
+              <fs_input> = ls_input.
+
+              gravar_log( iv_cnpj = CONV #( lt_parceiros[ partner = lv_werks ]-taxnum )
+                    iv_message_id = lo_protocol_messageid->get_message_id( )
+                        is_output = cs_output
+                         is_input = cs_input ).
+
+            ENDLOOP.
           ENDLOOP.
-
         ENDLOOP.
-
-        INSERT zmm_agco_log_hdr FROM TABLE lt_log_hdr.
-        INSERT zmm_agco_log_itm FROM TABLE lt_log_itm.
-        COMMIT WORK.
 
       CATCH cx_ai_system_fault INTO DATA(lo_exception).
       CATCH zcx_fault_response_out INTO DATA(lo_fault).

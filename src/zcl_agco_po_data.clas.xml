@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AGCO_PO_DATA</CLSNAME>
     <LANGU>P</LANGU>
-    <DESCRIPT>COOP-4537 - Criação de EDI para o fornecedor AGCO</DESCRIPT>
+    <DESCRIPT>AGCO - Interface Purchase</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

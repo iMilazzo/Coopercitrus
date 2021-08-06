@@ -1,32 +1,32 @@
-CLASS zcl_agco_so_data DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_agco_global
-  CREATE PUBLIC .
+class ZCL_AGCO_SO_DATA definition
+  public
+  inheriting from ZCL_AGCO_GLOBAL
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    ALIASES enviar
-      FOR zif_agco~enviar .
-    ALIASES preencher_saida
-      FOR zif_agco~preencher_saida .
-    ALIASES processar
-      FOR zif_agco~processar .
-    ALIASES ty_t_centros
-      FOR zif_agco~ty_t_centros .
-    ALIASES ty_t_materiais
-      FOR zif_agco~ty_t_materiais .
+  aliases ENVIAR
+    for ZIF_AGCO~ENVIAR .
+  aliases PREENCHER_SAIDA
+    for ZIF_AGCO~PREENCHER_SAIDA .
+  aliases PROCESSAR
+    for ZIF_AGCO~PROCESSAR .
+  aliases TY_T_CENTROS
+    for ZIF_AGCO~TY_T_CENTROS .
+  aliases TY_T_MATERIAIS
+    for ZIF_AGCO~TY_T_MATERIAIS .
 
-    TYPES:
-      ty_r_auart TYPE RANGE OF auart .
-    TYPES:
-      BEGIN OF ty_s_ordem,
+  types:
+    ty_r_auart TYPE RANGE OF auart .
+  types:
+    BEGIN OF ty_s_ordem,
         vbeln  TYPE vbeln,
+        posnr  TYPE posnr,
         erdat  TYPE erdat,
         vdatu  TYPE edatu_vbak,
         auart  TYPE auart,
         kunnr  TYPE kunnr,
         vbtyp  TYPE vbtyp,
-        posnr  TYPE posnr,
         matnr  TYPE matnr,
         werks  TYPE werks_d,
         kwmeng TYPE kwmeng,
@@ -37,13 +37,13 @@ CLASS zcl_agco_so_data DEFINITION
         uvall  TYPE uvall,
         uvfak  TYPE uvfak,
       END OF ty_s_ordem .
-    TYPES:
-      ty_t_ordens TYPE SORTED TABLE OF ty_s_ordem
-                        WITH UNIQUE KEY vbeln
+  types:
+    ty_t_ordens TYPE SORTED TABLE OF ty_s_ordem
+                        WITH UNIQUE KEY vbeln posnr
                         WITH NON-UNIQUE SORTED KEY material COMPONENTS matnr werks
                         WITH NON-UNIQUE SORTED KEY centro COMPONENTS werks .
-    TYPES:
-      BEGIN OF ty_s_item,
+  types:
+    BEGIN OF ty_s_item,
         vbeln  TYPE vbeln,
         posnr  TYPE posnr,
         matnr  TYPE matnr,
@@ -56,27 +56,27 @@ CLASS zcl_agco_so_data DEFINITION
         uvall  TYPE uvall,
         uvfak  TYPE uvfak,
       END OF ty_s_item .
-    TYPES:
-      ty_t_itens TYPE SORTED TABLE OF ty_s_item
+  types:
+    ty_t_itens TYPE SORTED TABLE OF ty_s_item
                        WITH UNIQUE KEY vbeln posnr .
-    TYPES:
-      BEGIN OF ty_s_fatura,
+  types:
+    BEGIN OF ty_s_fatura,
         vbeln TYPE vbeln,
         posnr TYPE posnr,
         fkdat TYPE fkdat,
       END OF ty_s_fatura .
-    TYPES:
-      ty_t_faturas TYPE SORTED TABLE OF ty_s_fatura
+  types:
+    ty_t_faturas TYPE SORTED TABLE OF ty_s_fatura
                          WITH UNIQUE KEY vbeln posnr .
-    TYPES:
-      BEGIN OF ty_s_cliente,
+  types:
+    BEGIN OF ty_s_cliente,
         kunnr TYPE kunnr,
         stcd1 TYPE stcd1,
       END OF ty_s_cliente .
-    TYPES:
-      ty_t_clientes TYPE SORTED TABLE OF ty_s_cliente WITH UNIQUE KEY kunnr .
-    TYPES:
-      BEGIN OF MESH ty_m_ordens,
+  types:
+    ty_t_clientes TYPE SORTED TABLE OF ty_s_cliente WITH UNIQUE KEY kunnr .
+  types:
+    BEGIN OF MESH ty_m_ordens,
         ordens    TYPE ty_t_ordens ASSOCIATION cliente TO clientes
                                             ON kunnr = kunnr USING KEY primary_key
                                    ASSOCIATION fatura TO faturas
@@ -104,14 +104,16 @@ CLASS zcl_agco_so_data DEFINITION
 
       END OF MESH ty_m_ordens .
 
-    DATA m_ordens TYPE ty_m_ordens .
+  data M_ORDENS type TY_M_ORDENS .
 
-    METHODS zif_agco~carregar_dados
-        REDEFINITION .
-    METHODS zif_agco~definir_criterios
-        REDEFINITION .
-    METHODS zif_agco~preencher_saida
-        REDEFINITION .
+  methods ZIF_AGCO~CARREGAR_DADOS
+    redefinition .
+  methods ZIF_AGCO~DEFINIR_CRITERIOS
+    redefinition .
+  methods ZIF_AGCO~PREENCHER_SAIDA
+    redefinition .
+  methods ZIF_AGCO~GRAVAR_LOG
+    redefinition .
 protected section.
 private section.
 
@@ -151,6 +153,8 @@ private section.
     for ZIF_AGCO~DEFINIR_CRITERIOS .
   aliases FORMATAR_CNPJ
     for ZIF_AGCO~FORMATAR_CNPJ .
+  aliases GRAVAR_LOG
+    for ZIF_AGCO~GRAVAR_LOG .
   aliases LER_CENTROS
     for ZIF_AGCO~LER_CENTROS .
   aliases LER_CONSTANTES
@@ -252,11 +256,12 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
 
 
   METHOD ler_ordens.
-    SELECT k~vbeln, k~erdat, k~vdatu, k~auart, k~kunnr, CASE WHEN k~vbtyp = 'C' THEN 'S'
+    SELECT DISTINCT
+           k~vbeln, p~posnr, k~erdat, k~vdatu, k~auart, k~kunnr, CASE WHEN k~vbtyp = 'C' THEN 'S'
                                                              WHEN k~vbtyp = 'H' THEN 'R'
                                                              ELSE ' '
                                                          END AS vbtyp,
-           p~posnr, p~matnr, p~werks, p~kwmeng, p~netpr,
+           p~matnr, p~werks, p~kwmeng, p~netpr,
            p~kzwi6, p~mwsbp, p~waerk, p~uvall,  p~uvfak
       FROM @it_centros AS c
       JOIN vbap        AS p ON p~matnr = c~matnr
@@ -268,6 +273,10 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
 
 
   METHOD zif_agco~carregar_dados.
+
+    MESSAGE s003(zpmm_agco).
+    GET RUN TIME FIELD DATA(lv_rtime_ini).
+
     "Carrega todos parceiros configurados (AGCO no caso)
     lt_parceiros = ler_parceiros( ).
     IF lt_parceiros IS NOT INITIAL.
@@ -290,9 +299,18 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
           MESSAGE s011(zpmm_agco) WITH CONV numc10( lines( m_ordens-centros ) ) 'CENTROS'.
           m_ordens-ordens = ler_ordens( it_centros = m_ordens-centros
                                         iv_erdat = lv_erdat ).
+          MESSAGE s011(zpmm_agco) WITH CONV numc10( lines( m_ordens-ordens ) ) 'ORDENS'.
 *          m_ordens-itens = ler_itens( m_ordens-ordens ).
+
           m_ordens-faturas = ler_dados_comerciais( m_ordens-ordens ).
+          MESSAGE s011(zpmm_agco) WITH CONV numc10( lines( m_ordens-faturas ) ) 'FATURAS'.
+
           m_ordens-clientes = ler_clientes( m_ordens-ordens ).
+          MESSAGE s011(zpmm_agco) WITH CONV numc10( lines( m_ordens-clientes ) ) 'CLIENTES'.
+
+          GET RUN TIME FIELD DATA(lv_rtime_fim).
+          v_rtime = ( lv_rtime_fim - lv_rtime_ini ) / 1000000 .
+          MESSAGE s013(zpmm_agco) WITH v_rtime.
 
         ELSE.
           RAISE EXCEPTION TYPE zcx_agco MESSAGE e014(zpmm_agco).
@@ -335,15 +353,15 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
   endmethod.
 
 
-  METHOD zif_agco~preencher_saida.
+  METHOD zif_agco~gravar_log.
+*CALL METHOD SUPER->ZIF_AGCO~GRAVAR_LOG
+*  EXPORTING
+*    IV_CNPJ       =
+*    IV_MESSAGE_ID =
+*    IS_OUTPUT     =
+*    IS_INPUT      =
+*    .
     TYPES:
-      BEGIN OF ty_s_payload,
-        msgguid TYPE sxmsmsglst-msgguid,
-        pid     TYPE sxmsmsglst-pid,
-        payload TYPE xstring,
-      END OF ty_s_payload,
-      ty_t_payload TYPE SORTED TABLE OF ty_s_payload  WITH NON-UNIQUE KEY msgguid pid,
-
       BEGIN OF ty_s_sdata,
         order_date            TYPE c LENGTH 50,
         order_type            TYPE c LENGTH 10,
@@ -359,16 +377,65 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
       ty_t_log_itm TYPE SORTED TABLE OF zmm_agco_log_itm
                    WITH UNIQUE KEY interface cnpj data hora rastreio item.
 
-
     DATA:
-      lv_rtime   TYPE p DECIMALS 3,
       lt_log_hdr TYPE ty_t_log_hdr,
       lt_log_itm TYPE ty_t_log_itm.
 
+    FIELD-SYMBOLS <fs_output> TYPE zsend_sales.
+    FIELD-SYMBOLS <fs_input>  TYPE zresponse_sales1.
+
+    ASSIGN is_output->* TO <fs_output>.
+    ASSIGN is_input->*  TO <fs_input>.
+
+    lt_log_hdr = VALUE ty_t_log_hdr(
+                  BASE lt_log_hdr
+                    (  interface = |04|
+                            cnpj = iv_cnpj
+                            data = v_data
+                            hora = v_hora
+                        rastreio = <fs_input>-response_sales-meta-tracking_id
+                          status = <fs_input>-response_sales-meta-status
+                      message_id = iv_message_id
+                         tamanho = 318
+                           sdata = CONV ty_s_sdata( CORRESPONDING #( <fs_output>-send_sales-data-order ) ) ) ).
+
+    IF <fs_input>-response_sales-meta-status <> |200| AND
+       <fs_input>-response_sales-meta-status <> |201|.
+
+      lt_log_itm = VALUE ty_t_log_itm(
+                    BASE lt_log_itm
+                     FOR i = 1 THEN i + 1 UNTIL i > lines( <fs_input>-response_sales-errors )
+                     LET ls_error = <fs_input>-response_sales-errors[ i ]
+                      IN (
+                        interface = |04|
+                             cnpj = iv_cnpj
+                             data = v_data
+                             hora = v_hora
+                         rastreio = <fs_input>-response_sales-meta-tracking_id
+                             item = i
+                            campo = ls_error-source-pointer
+                            valor = ls_error-source-value
+                          detalhe = ls_error-detail
+                             erro = ls_error-error_code ) ).
+
+    ENDIF.
+
+
+  ENDMETHOD.
+
+
+  METHOD zif_agco~preencher_saida.
+
+    DATA:
+      cs_output  TYPE REF TO data,
+      cs_input   TYPE REF TO data.
+
+    MESSAGE s008(zpmm_agco).
     GET RUN TIME FIELD DATA(lv_rtime_ini).
 
     TRY.
 
+        MESSAGE s009(zpmm_agco) WITH 'ZCO_SI_SALES_OUTBOUND'.
         DATA(lo_sender) = NEW zco_si_sales_outbound( ).
         DATA(ls_saida) = VALUE zsend_sales(
                                 send_sales = VALUE #(
@@ -384,7 +451,7 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
                                  ASSIGNING FIELD-SYMBOL(<fs_members>).
 
           ls_saida-send_sales-data-dealer_legal_number = formatar_cnpj( CONV #( lt_parceiros[ partner = <fs_members>-werks ]-taxnum ) ).
-          MESSAGE s019(zpmm_agco) WITH <fs_members>-size |inventários| ls_saida-send_sales-data-dealer_legal_number.
+          MESSAGE s019(zpmm_agco) WITH <fs_members>-size |ordens de venda| ls_saida-send_sales-data-dealer_legal_number.
 
           LOOP AT GROUP <fs_members> ASSIGNING FIELD-SYMBOL(<fs_ordem>).
 
@@ -416,48 +483,28 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
                                                       taxes = <fs_ordem>-mwsbp
                                                    currency = <fs_ordem>-waerk ) ) ) .
 
-            ls_saida-send_sales-data-order = ls_so.
+            IF v_teste IS INITIAL.
 
-            DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
+              ls_saida-send_sales-data-order = ls_so.
+              DATA: lo_protocol_messageid TYPE REF TO if_wsprotocol_message_id.
 
-            lo_sender->si_sales_outbound( EXPORTING output = ls_saida
-                                          IMPORTING  input = DATA(ls_input)  ).
+              lo_sender->si_sales_outbound( EXPORTING output = ls_saida
+                                            IMPORTING  input = DATA(ls_input)  ).
 
-            lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
+              lo_protocol_messageid ?= lo_sender->get_protocol( if_wsprotocol=>message_id ).
 
-            lt_log_hdr = VALUE ty_t_log_hdr(
-                          BASE lt_log_hdr
-                            (  interface = |04|
-                                    cnpj = lt_parceiros[ 1 ]-taxnum
-                                    data = v_data
-                                    hora = v_hora
-                                rastreio = ls_input-response_sales-meta-tracking_id
-                                  status = ls_input-response_sales-meta-status
-                              message_id = lo_protocol_messageid->get_message_id( )
-                                 tamanho = 318
-                                   sdata = CONV ty_s_sdata( CORRESPONDING #( ls_saida-send_sales-data-order ) ) ) ).
+              CREATE DATA cs_output LIKE ls_saida.
+              ASSIGN cs_output->* TO FIELD-SYMBOL(<fs_output>).
+              <fs_output> = ls_saida.
 
-            IF ls_input-response_sales-meta-status <> |200| AND
-               ls_input-response_sales-meta-status <> |201|.
+              CREATE DATA cs_input LIKE ls_input.
+              ASSIGN cs_input->* TO FIELD-SYMBOL(<fs_input>).
+              <fs_input> = ls_input.
 
-              lt_log_itm = VALUE ty_t_log_itm(
-                            BASE lt_log_itm
-                             FOR i = 1 THEN i + 1 UNTIL i > lines( ls_input-response_sales-errors )
-                             LET ls_error = ls_input-response_sales-errors[ i ]
-                              IN (
-                                interface = |04|
-                                     cnpj = lt_parceiros[ 1 ]-taxnum
-                                     data = v_data
-                                     hora = v_hora
-                                 rastreio = ls_input-response_sales-meta-tracking_id
-                                     item = i
-                                    campo = ls_error-source-pointer
-                                    valor = REDUCE #(
-                                              INIT l_value TYPE string
-                                               FOR <fs_value> IN ls_error-source-values
-                                              NEXT l_value = |{ l_value }, { <fs_value> }| )
-                                  detalhe = ls_error-detail
-                                     erro = ls_error-error_code ) ).
+              gravar_log( iv_cnpj = CONV #( lt_parceiros[ partner = <fs_members>-werks ]-taxnum )
+                    iv_message_id = lo_protocol_messageid->get_message_id( )
+                        is_output = cs_output
+                         is_input = cs_input ).
 
             ENDIF.
 
@@ -465,18 +512,15 @@ CLASS ZCL_AGCO_SO_DATA IMPLEMENTATION.
 
         ENDLOOP.
 
-        INSERT zmm_agco_log_hdr FROM TABLE lt_log_hdr.
-        INSERT zmm_agco_log_itm FROM TABLE lt_log_itm.
-        COMMIT WORK.
-
       CATCH cx_ai_system_fault INTO DATA(lo_exception).
-      CATCH zcx_fault_response_out INTO DATA(lo_fault).
+        MESSAGE e021(zpmm_agco).
+        MESSAGE e022(zpmm_agco).
+        MESSAGE e000(zpmm_agco) WITH lo_exception->get_text( ).
 
     ENDTRY.
 
     GET RUN TIME FIELD DATA(lv_rtime_fim).
-    lv_rtime = ( lv_rtime_fim - lv_rtime_ini ) / 1000000 .
-    LOG-POINT ID zagco_log FIELDS lv_rtime_ini lv_rtime_fim lv_rtime.
+    v_rtime = ( lv_rtime_fim - lv_rtime_ini ) / 1000000 .
 
   ENDMETHOD.
 ENDCLASS.

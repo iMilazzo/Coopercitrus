@@ -43,6 +43,12 @@
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZIF_AGCO</CLSNAME>
+     <CMPNAME>DEFINIR_MATERIAIS</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Definir materiais para carga delta</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_AGCO</CLSNAME>
      <CMPNAME>DEFINIR_MODO_TESTE</CMPNAME>
      <LANGU>P</LANGU>
      <DESCRIPT>Definir se a execução será em modo teste (sem envio)</DESCRIPT>
@@ -58,6 +64,12 @@
      <CMPNAME>FORMATAR_CNPJ</CMPNAME>
      <LANGU>P</LANGU>
      <DESCRIPT>Formata saída CNPJ</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_AGCO</CLSNAME>
+     <CMPNAME>GRAVAR_LOG</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Gravar registro de log do envio</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZIF_AGCO</CLSNAME>
@@ -127,6 +139,12 @@
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZIF_AGCO</CLSNAME>
+     <CMPNAME>R_MATNR</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Range de Materiais</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_AGCO</CLSNAME>
      <CMPNAME>R_MFRNR</CMPNAME>
      <LANGU>P</LANGU>
      <DESCRIPT>Tabela de Parceiros</DESCRIPT>
@@ -154,6 +172,12 @@
      <CMPNAME>TY_R_MATKL</CMPNAME>
      <LANGU>P</LANGU>
      <DESCRIPT>Range de tipo de material</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_AGCO</CLSNAME>
+     <CMPNAME>TY_R_MATNR</CMPNAME>
+     <LANGU>P</LANGU>
+     <DESCRIPT>Range de materiais</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZIF_AGCO</CLSNAME>
